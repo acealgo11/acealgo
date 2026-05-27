@@ -790,8 +790,12 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
     <h2 class="display">Apply to Join Ace Algo</h2>
     <p class="sub" style="max-width:560px">We limit intake each month to maintain performance standards. Complete the short application below to check your eligibility.</p>
     <div class="tf-wrap">
-      <div data-tf-live="01KSJKM71V0R47PKWFFM87ZP8A" data-tf-auto-resize></div>
-      <script src="//embed.typeform.com/next/embed.js" defer></script>
+      <iframe id="tf-iframe"
+        src="https://form.typeform.com/to/01KSJKM71V0R47PKWFFM87ZP8A?typeform-embed=embed-widget&embed-hide-footer=true&embed-hide-headers=true"
+        frameborder="0"
+        style="width:100%;border:none;display:block;min-height:400px"
+        allow="camera; microphone; autoplay; encrypted-media;"
+      ></iframe>
     </div>
   </div>
 </section>
@@ -1244,6 +1248,29 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   });
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') window.closePdf();
+  });
+
+  // Typeform auto-resize via postMessage
+  window.addEventListener('message', function(e){
+    if(e.data && e.data.type === 'form-ready'){
+      var iframe = document.getElementById('tf-iframe');
+      if(iframe) iframe.style.minHeight = '500px';
+    }
+    if(e.data && e.data.type === 'form-height-changed'){
+      var iframe = document.getElementById('tf-iframe');
+      if(iframe && e.data.data && e.data.data.height){
+        iframe.style.minHeight = (e.data.data.height + 60) + 'px';
+      }
+    }
+    if(e.data && typeof e.data === 'string'){
+      try{
+        var d = JSON.parse(e.data);
+        if(d.type === 'form-height-changed' && d.data && d.data.height){
+          var iframe = document.getElementById('tf-iframe');
+          if(iframe) iframe.style.minHeight = (d.data.height + 60) + 'px';
+        }
+      }catch(err){}
+    }
   });
 
   // Smooth scroll
