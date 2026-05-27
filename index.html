@@ -155,7 +155,7 @@ body{font-family:var(--font-body);background:var(--black);color:var(--white);lin
   max-width:860px;margin-left:auto;margin-right:auto;
   letter-spacing:-.01em;
 }
-@media(max-width:768px){.hero-h1{font-size:36px;letter-spacing:-.02em}}
+@media(max-width:768px){.hero-h1{font-size:32px;letter-spacing:-.02em;padding:0 12px}}
 @media(max-width:768px){.hero-h1 br{display:none}}
 .hero-sub{
   font-size:clamp(15px,2vw,18px);
@@ -233,8 +233,8 @@ body{font-family:var(--font-body);background:var(--black);color:var(--white);lin
 }
 #apply h2{font-family:var(--font-display);font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--black);margin-bottom:12px}
 #apply .sub{font-size:16px;color:#222;font-weight:500;max-width:560px;margin-bottom:36px;line-height:1.65}
-.tf-wrap{background:#fff;border-radius:10px;border:1px solid rgba(0,0,0,.1);overflow:hidden}
-@media(max-width:768px){.tf-wrap{min-height:0}}
+.tf-wrap{background:#fff;border-radius:10px;border:1px solid rgba(0,0,0,.1);overflow:hidden;min-height:480px}
+@media(max-width:768px){.tf-wrap{min-height:640px}}
 
 /* === STATS BAR (premium) === */
 #stats{
@@ -251,10 +251,10 @@ body{font-family:var(--font-body);background:var(--black);color:var(--white);lin
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;z-index:1}
 @media(max-width:640px){
   .stats-grid{grid-template-columns:repeat(4,1fr)}
-  .stat-item{padding:20px 6px}
-  .stat-num{font-size:clamp(13px,4vw,20px)}
-  .stat-desc{font-size:9px;letter-spacing:.01em}
-  .stat-rule{margin:5px auto 0;width:20px}
+  .stat-item{padding:18px 4px}
+  .stat-num{font-size:clamp(11px,3.5vw,18px);white-space:nowrap}
+  .stat-desc{font-size:8.5px;letter-spacing:.01em}
+  .stat-rule{margin:4px auto 0;width:16px}
 }
 .stat-item{
   padding:44px 28px;text-align:center;
@@ -534,20 +534,29 @@ table.comp tbody tr:nth-child(odd) td.col-ace{background:rgba(201,168,76,.15)}
   .tcarousel{
     display:block;position:relative;z-index:1;
     overflow:hidden;
-    margin:0 -20px; /* bleed to screen edge */
-    padding:0 20px; /* restore inner padding */
+    width:calc(100% + 40px);
+    margin-left:-20px;
   }
   .tcarousel-track{
     display:flex;
     transition:transform .35s ease;
     will-change:transform;
+    padding-left:20px;
   }
   .tcarousel-track .tcard{
-    min-width:78%;
+    min-width:80%;
+    max-width:80%;
     flex-shrink:0;
     margin:0 10px 0 0;
+    box-sizing:border-box;
   }
-  .tcard-img{max-height:none;object-fit:contain}
+  .tcard-img{
+    max-height:none;
+    height:auto;
+    width:100%;
+    object-fit:contain;
+    display:block;
+  }
   .tcarousel-dots{
     display:flex;justify-content:center;gap:8px;margin-top:18px;
   }
