@@ -233,8 +233,8 @@ body{font-family:var(--font-body);background:var(--black);color:var(--white);lin
 }
 #apply h2{font-family:var(--font-display);font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--black);margin-bottom:12px}
 #apply .sub{font-size:16px;color:#222;font-weight:500;max-width:560px;margin-bottom:36px;line-height:1.65}
-.tf-wrap{border-radius:10px;overflow:hidden;height:900px}
-@media(max-width:768px){.tf-wrap{border-radius:6px;height:1100px}}
+.tf-wrap{border-radius:10px;overflow:hidden;height:auto}
+@media(max-width:768px){.tf-wrap{border-radius:6px}}
 
 /* === STATS BAR (premium) === */
 #stats{
@@ -792,7 +792,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
     <h2 class="display">Apply to Join Ace Algo</h2>
     <p class="sub" style="max-width:560px">We limit intake each month to maintain performance standards. Complete the short application below to check your eligibility.</p>
     <div class="tf-wrap">
-      <div class="iclosed-widget" data-url="https://app.iclosed.io/e/acealgo/ace-algo-advisory-call" title="Ace Algo Advisory Call" style="width:100%;height:100%"></div>
+      <div id="iclosed-wrap" class="iclosed-widget" data-url="https://app.iclosed.io/e/acealgo/ace-algo-advisory-call" title="Ace Algo Advisory Call" style="width:100%;height:620px"></div>
       <script type="text/javascript" src="https://app.iclosed.io/assets/widget.js" async></script>
     </div>
   </div>
@@ -1246,6 +1246,18 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   });
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') window.closePdf();
+  });
+
+  // iClosed auto-resize
+  window.addEventListener('message', function(e){
+    if(!e.data) return;
+    var d = typeof e.data === 'string' ? (function(){try{return JSON.parse(e.data)}catch(x){return null}}()) : e.data;
+    if(!d) return;
+    var h = d.height || (d.data && d.data.height);
+    if(h && h > 100){
+      var el = document.getElementById('iclosed-wrap');
+      if(el) el.style.height = (parseInt(h) + 40) + 'px';
+    }
   });
 
   // Smooth scroll
