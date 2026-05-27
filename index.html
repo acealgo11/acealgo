@@ -233,8 +233,8 @@ body{font-family:var(--font-body);background:var(--black);color:var(--white);lin
 }
 #apply h2{font-family:var(--font-display);font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--black);margin-bottom:12px}
 #apply .sub{font-size:16px;color:#222;font-weight:500;max-width:560px;margin-bottom:36px;line-height:1.65}
-.tf-wrap{border-radius:10px;overflow:hidden}
-@media(max-width:768px){.tf-wrap{border-radius:6px}}
+.tf-wrap{border-radius:10px;overflow:hidden;min-height:600px}
+@media(max-width:768px){.tf-wrap{border-radius:6px;min-height:720px}}
 
 /* === STATS BAR (premium) === */
 #stats{
@@ -790,12 +790,8 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
     <h2 class="display">Apply to Join Ace Algo</h2>
     <p class="sub" style="max-width:560px">We limit intake each month to maintain performance standards. Complete the short application below to check your eligibility.</p>
     <div class="tf-wrap">
-      <iframe id="tf-iframe"
-        src="https://form.typeform.com/to/01KSJKM71V0R47PKWFFM87ZP8A?typeform-embed=embed-widget&embed-hide-footer=true&embed-hide-headers=true"
-        frameborder="0"
-        style="width:100%;border:none;display:block;min-height:400px"
-        allow="camera; microphone; autoplay; encrypted-media;"
-      ></iframe>
+      <div data-tf-live="01KSJKM71V0R47PKWFFM87ZP8A"></div>
+      <script src="//embed.typeform.com/next/embed.js" defer></script>
     </div>
   </div>
 </section>
@@ -1248,29 +1244,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   });
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') window.closePdf();
-  });
-
-  // Typeform auto-resize via postMessage
-  window.addEventListener('message', function(e){
-    if(e.data && e.data.type === 'form-ready'){
-      var iframe = document.getElementById('tf-iframe');
-      if(iframe) iframe.style.minHeight = '500px';
-    }
-    if(e.data && e.data.type === 'form-height-changed'){
-      var iframe = document.getElementById('tf-iframe');
-      if(iframe && e.data.data && e.data.data.height){
-        iframe.style.minHeight = (e.data.data.height + 60) + 'px';
-      }
-    }
-    if(e.data && typeof e.data === 'string'){
-      try{
-        var d = JSON.parse(e.data);
-        if(d.type === 'form-height-changed' && d.data && d.data.height){
-          var iframe = document.getElementById('tf-iframe');
-          if(iframe) iframe.style.minHeight = (d.data.height + 60) + 'px';
-        }
-      }catch(err){}
-    }
   });
 
   // Smooth scroll
