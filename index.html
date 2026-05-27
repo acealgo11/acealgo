@@ -250,11 +250,13 @@ body{font-family:var(--font-body);background:var(--black);color:var(--white);lin
 }
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;z-index:1}
 @media(max-width:640px){
-  .stats-grid{grid-template-columns:repeat(4,1fr)}
-  .stat-item{padding:18px 4px}
-  .stat-num{font-size:clamp(11px,3.5vw,18px);white-space:nowrap}
-  .stat-desc{font-size:8.5px;letter-spacing:.01em}
-  .stat-rule{margin:4px auto 0;width:16px}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-item{padding:28px 16px;border-right:none;border-bottom:1px solid rgba(201,168,76,.18)}
+  .stat-item:nth-child(1),.stat-item:nth-child(3){border-right:1px solid rgba(201,168,76,.18)}
+  .stat-item:nth-child(3),.stat-item:nth-child(4){border-bottom:none}
+  .stat-num{font-size:clamp(20px,6vw,28px);white-space:nowrap}
+  .stat-desc{font-size:11px;letter-spacing:.03em}
+  .stat-rule{margin:6px auto 0;width:24px}
 }
 .stat-item{
   padding:44px 28px;text-align:center;
