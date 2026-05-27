@@ -233,8 +233,10 @@ body{font-family:var(--font-body);background:var(--black);color:var(--white);lin
 }
 #apply h2{font-family:var(--font-display);font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--black);margin-bottom:12px}
 #apply .sub{font-size:16px;color:#222;font-weight:500;max-width:560px;margin-bottom:36px;line-height:1.65}
-.tf-wrap{border-radius:10px;overflow:hidden;min-height:600px}
-@media(max-width:768px){.tf-wrap{border-radius:6px;min-height:720px}}
+.tf-wrap{border-radius:10px;overflow:visible}
+.tf-wrap>div{min-height:0!important}
+.tf-wrap iframe{display:block!important;width:100%!important;height:100vh!important;min-height:600px!important;border:none!important;overflow:hidden!important}
+@media(max-width:768px){.tf-wrap{border-radius:6px}.tf-wrap iframe{height:100vh!important;min-height:700px!important}}
 
 /* === STATS BAR (premium) === */
 #stats{
