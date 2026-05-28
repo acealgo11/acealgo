@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Ace Algo — Application Received">
+<title>Application Received — Ace Algo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap"></noscript>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+img{max-width:100%;height:auto;display:block}
+:root{
+  --black:#000000;
+  --navy:#0A0A1A;
+  --blue:#3533CD;
+  --gold:#C9A84C;
+  --gold-light:#E8C96A;
+  --white:#FFFFFF;
+  --white-soft:#F0F0F0;
+  --text-sec:#A0A0B0;
+  --gradient-brand:linear-gradient(135deg,#000000 0%,#0d0c3a 50%,#3533CD 100%);
+  --font-display:'Poppins',sans-serif;
+  --font-body:'DM Sans','Helvetica Neue',sans-serif;
+  --nav-h:68px;
+  --max-w:1120px;
+  --pad-x:clamp(20px,5vw,60px);
+}
+body{font-family:var(--font-body);background:var(--black);color:var(--white);line-height:1.6;overflow-x:hidden;font-size:16px}
+.display{font-family:var(--font-display)}
+.gold{color:var(--gold)}
+.container{max-width:var(--max-w);margin:0 auto;padding:0 var(--pad-x)}
+.gold-divider{width:48px;height:3px;background:var(--gold);margin:0 auto 24px;border-radius:2px}
+.section-rule{height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.55),transparent);border:none;margin:0}
+
+/* NAV */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:var(--nav-h);
+  background:rgba(0,0,0,0.92);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(201,168,76,0.55);
+}
+.nav-inner{
+  max-width:var(--max-w);width:100%;height:100%;margin:0 auto;
+  padding:0 var(--pad-x);
+  display:flex;align-items:center;justify-content:center;
+}
+.nav-logo img{height:34px;width:auto;display:block}
+
+/* HERO */
+#hero{
+  background:var(--gradient-brand);
+  padding-top:calc(var(--nav-h) + 56px);
+  padding-bottom:64px;
+  position:relative;overflow:hidden;
+  text-align:center;
+}
+#hero::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233533CD' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:1}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:100px;
+  padding:8px 22px;
+  margin-bottom:28px;
+  font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:rgba(255,255,255,.9);
+}
+.hero-badge .dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;
+}
+.hero-h1{
+  font-family:var(--font-display);
+  font-size:clamp(28px,3.5vw,52px);
+  font-weight:900;line-height:1.1;
+  color:var(--white);
+  margin-bottom:20px;
+  max-width:760px;margin-left:auto;margin-right:auto;
+  letter-spacing:-.02em;
+}
+.hero-h1 .gold{color:var(--gold)}
+.hero-sub{
+  font-size:clamp(15px,1.8vw,18px);
+  color:rgba(255,255,255,.85);
+  max-width:580px;margin:0 auto 36px;
+  font-weight:300;line-height:1.75;
+}
+/* capacity notice box */
+.capacity-box{
+  display:inline-flex;align-items:flex-start;gap:14px;
+  background:rgba(0,0,0,.4);
+  border:1px solid rgba(201,168,76,.4);
+  border-radius:10px;
+  padding:18px 24px;
+  max-width:600px;
+  text-align:left;
+  margin:0 auto;
+}
+.capacity-icon{
+  font-size:22px;flex-shrink:0;margin-top:2px;
+}
+.capacity-text{font-size:14px;color:rgba(255,255,255,.88);line-height:1.7}
+.capacity-text strong{color:var(--gold)}
+
+/* STATS */
+#stats{
+  background:var(--black);
+  border-top:1px solid rgba(201,168,76,.22);
+  border-bottom:1px solid rgba(201,168,76,.22);
+  position:relative;overflow:hidden;
+}
+#stats::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 50%,rgba(201,168,76,.05) 0%,transparent 70%);
+  pointer-events:none;
+}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;z-index:1}
+.stat-item{padding:44px 28px;text-align:center;border-right:1px solid rgba(201,168,76,.18);position:relative}
+.stat-item::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:120px;height:120px;background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 70%);pointer-events:none}
+.stat-item:last-child{border-right:none}
+@media(max-width:640px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-item{padding:20px 14px;border-right:none;border-bottom:1px solid rgba(201,168,76,.18)}
+  .stat-item:nth-child(1),.stat-item:nth-child(3){border-right:1px solid rgba(201,168,76,.18)}
+  .stat-item:nth-child(3),.stat-item:nth-child(4){border-bottom:none}
+}
+.stat-num{font-family:var(--font-display);font-size:clamp(22px,3vw,36px);font-weight:900;color:var(--gold);display:block;margin-bottom:6px;text-shadow:0 0 30px rgba(201,168,76,.3);letter-spacing:-.01em}
+.stat-desc{font-size:12px;color:#ccc;font-weight:500;letter-spacing:.05em;text-transform:uppercase}
+.stat-rule{width:28px;height:1px;background:var(--gold);opacity:.4;margin:10px auto 0}
+
+/* RESULTS / TESTIMONIALS */
+#testimonials{
+  background:var(--navy);padding:88px 0;
+  position:relative;overflow:hidden;
+}
+#testimonials::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233533CD' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none;
+}
+#testimonials::after{
+  content:'';position:absolute;bottom:-120px;left:-100px;width:700px;height:600px;
+  background:radial-gradient(circle,rgba(53,51,205,.28) 0%,transparent 65%);pointer-events:none;
+}
+.t-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:16px;position:relative;z-index:1}
+#testimonials h2{font-family:var(--font-display);font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--white);margin-bottom:12px;text-align:center;letter-spacing:-.02em;position:relative;z-index:1}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative;z-index:1}
+@media(max-width:900px){.testimonials-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.testimonials-grid{display:none}}
+.tcarousel{display:none}
+@media(max-width:768px){
+  .tcarousel{display:block;position:relative;z-index:1;overflow:hidden;width:calc(100% + 40px);margin-left:-20px}
+  .tcarousel-track{display:flex;transition:transform .35s ease;will-change:transform;padding-left:20px}
+  .tcarousel-track .tcard{min-width:80%;max-width:80%;flex-shrink:0;margin:0 10px 0 0;box-sizing:border-box}
+  .tcard-img{max-height:none;height:auto;width:100%;object-fit:contain;display:block}
+  .tcarousel-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
+  .tcarousel-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(255,255,255,.25);cursor:pointer;padding:0;transition:background .2s,transform .2s}
+  .tcarousel-dots button.active{background:var(--gold);transform:scale(1.3)}
+  .tcarousel-btns{display:none}
+}
+.tcard{background:rgba(255,255,255,.04);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(201,168,76,.45);border-radius:12px;padding:28px 26px;transition:border-color .2s,transform .2s,box-shadow .2s}
+.tcard:hover{border-color:rgba(201,168,76,.9);transform:translateY(-3px);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.tcard-top{margin-bottom:14px}
+.tcard-identity{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tcard-name{font-weight:700;font-size:17px;color:var(--white)}
+.tcard-sep{color:rgba(201,168,76,.6);font-size:13px}
+.tcard-loc{font-size:13px;color:#ccc;font-weight:500}
+.tcard-result{display:inline-block;font-family:var(--font-display);font-weight:900;font-size:26px;color:var(--gold);letter-spacing:-.01em;margin-bottom:14px;text-shadow:0 0 20px rgba(201,168,76,.2)}
+.tcard-result-label{font-size:12px;color:#ddd;font-weight:500;margin-left:4px;letter-spacing:.03em}
+.tcard-img{width:100%;border-radius:8px;margin:12px 0 0;object-fit:contain;border:1px solid rgba(201,168,76,.2);display:block;background:#000}
+
+/* HOW IT WORKS */
+#how{background:var(--white-soft);padding:88px 0}
+#how h2{font-family:var(--font-display);font-size:clamp(28px,3.5vw,46px);font-weight:900;color:var(--black);margin-bottom:12px;text-align:center;letter-spacing:-.02em}
+#how .sec-sub{font-size:16px;color:#333;text-align:center;max-width:420px;margin:0 auto 52px;line-height:1.7}
+.steps-grid{display:flex;flex-direction:column;gap:20px;max-width:800px;margin:0 auto}
+.step-card{background:#fff;border-radius:10px;border:1px solid rgba(0,0,0,.07);border-left:4px solid var(--gold);padding:28px 32px;box-shadow:0 4px 24px rgba(0,0,0,.06);display:flex;align-items:flex-start;gap:24px;transition:box-shadow .2s,transform .2s}
+.step-card:hover{box-shadow:0 12px 40px rgba(0,0,0,.1);transform:translateY(-2px)}
+.step-num{width:48px;height:48px;border-radius:50%;flex-shrink:0;background:var(--black);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:20px}
+.step-card-body{flex:1}
+.step-card h3{font-size:19px;font-weight:900;color:var(--black);margin-bottom:8px;font-family:var(--font-display)}
+.step-card p{font-size:15px;color:#333;line-height:1.7}
+
+/* GUARANTEE */
+#guarantee{
+  background:var(--gradient-brand);
+  padding:56px 0;position:relative;overflow:hidden;
+}
+#guarantee::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233533CD' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.guarantee-inner{display:flex;align-items:center;gap:36px;position:relative;z-index:1}
+@media(max-width:720px){.guarantee-inner{flex-direction:column;gap:24px;text-align:center}}
+.guarantee-shield{flex-shrink:0;width:80px;height:80px;background:rgba(201,168,76,.15);border:2px solid rgba(201,168,76,.5);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:38px}
+.guarantee-copy h3{font-family:var(--font-display);font-size:clamp(20px,2.5vw,32px);font-weight:900;color:#fff;margin-bottom:8px}
+.guarantee-copy p{font-size:16px;color:rgba(255,255,255,.88);line-height:1.7;max-width:560px}
+.guarantee-copy p strong{color:var(--gold)}
+
+/* CTA BOTTOM */
+#cta-bottom{background:var(--black);padding:80px 0;text-align:center;border-top:1px solid rgba(201,168,76,.15)}
+#cta-bottom h2{font-family:var(--font-display);font-size:clamp(24px,3vw,42px);font-weight:900;color:#fff;margin-bottom:14px;letter-spacing:-.02em;max-width:640px;margin-left:auto;margin-right:auto}
+#cta-bottom p{font-size:16px;color:#bbb;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7}
+.btn-gold{
+  display:inline-block;background:var(--gold);color:#000;
+  font-family:var(--font-body);font-weight:800;font-size:17px;
+  padding:18px 44px;border-radius:6px;text-decoration:none;
+  position:relative;overflow:hidden;
+  transition:background .18s,box-shadow .18s,transform .18s;
+}
+.btn-gold::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.4) 50%,transparent 60%);transform:translateX(-100%);animation:shimmer 2.5s infinite}
+.btn-gold:hover{background:var(--gold-light);box-shadow:0 8px 40px rgba(201,168,76,.45);transform:translateY(-2px)}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
+
+/* FOOTER */
+footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);padding:36px 0 40px}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-copy{font-size:13px;color:#ccc;font-weight:500}
+.footer-disc{font-size:12px;color:#555;line-height:1.7;max-width:900px;margin:20px auto 0;text-align:center}
+
+/* WHATSAPP */
+#wa-widget{position:fixed;bottom:24px;right:24px;z-index:300;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+@media(max-width:768px){#wa-widget{bottom:16px;right:16px}}
+.wa-tooltip{background:#fff;color:#111;font-size:13px;font-weight:600;line-height:1.45;padding:10px 14px;border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,.22);max-width:210px;position:relative;animation:waBounce 0.4s cubic-bezier(.34,1.56,.64,1) forwards;opacity:0;transform:translateY(8px) scale(.95)}
+.wa-tooltip::after{content:'';position:absolute;bottom:-7px;right:20px;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:8px solid #fff}
+@keyframes waBounce{to{opacity:1;transform:translateY(0) scale(1)}}
+.wa-btn{width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.45);cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s;position:relative}
+.wa-btn:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(37,211,102,.6)}
+.wa-btn svg{width:32px;height:32px;fill:#fff}
+.wa-pulse{position:absolute;top:0;right:0;width:16px;height:16px;border-radius:50%;background:var(--gold);border:2px solid #000;animation:waPulse 2s ease-in-out infinite}
+@keyframes waPulse{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.7)}50%{box-shadow:0 0 0 7px rgba(201,168,76,0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav" role="navigation">
+  <div class="nav-inner">
+    <a href="https://acealgo.ai" class="nav-logo" aria-label="Ace Algo home">
+      <img src="https://i.ibb.co/fzv8dPxb/Blue-white.png" alt="Ace Algo" width="120" height="34" loading="eager">
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+
+      <div class="hero-badge">
+        <div class="dot"></div>
+        Application received
+      </div>
+
+      <h1 class="hero-h1 display">
+        We've received your application.<br>
+        <span class="gold">We'll be in touch shortly.</span>
+      </h1>
+
+      <p class="hero-sub">
+        Our intake is managed carefully to protect performance for existing members. We review every application individually — if there's a fit, someone from the team will reach out directly to explore next steps.
+      </p>
+
+      <div class="capacity-box">
+        <div class="capacity-icon">📋</div>
+        <div class="capacity-text">
+          <strong>While you wait</strong> — take a look at what Ace Algo is delivering for our current members below. If you have questions in the meantime, message us directly on WhatsApp and a member of the team will get back to you.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- STATS -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-num">4+ YRS</span>
+        <div class="stat-rule"></div>
+        <span class="stat-desc">Tracked<br>Performance</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">1,000+</span>
+        <div class="stat-rule"></div>
+        <span class="stat-desc">Active<br>Clients</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">5–17%</span>
+        <div class="stat-rule"></div>
+        <span class="stat-desc">Monthly<br>Returns</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">90 Day</span>
+        <div class="stat-rule"></div>
+        <span class="stat-desc">Money Back<br>Guarantee</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <p class="t-eyebrow">Real investors. Real results.</p>
+    <h2 class="display">What Our Members Are Seeing</h2>
+    <div class="gold-divider"></div>
+
+    <!-- Desktop -->
+    <div class="testimonials-grid" id="tgrid">
+      <div class="tcard">
+        <div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Sarah Jenkins</span><span class="tcard-sep">·</span><span class="tcard-loc">London, UK</span></div></div>
+        <div class="tcard-result">+15%<span class="tcard-result-label">in 1 month</span></div>
+        <img src="https://i.ibb.co/GQGnVN9Q/T1.png" alt="Member result" class="tcard-img" loading="lazy">
+      </div>
+      <div class="tcard">
+        <div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Carlton Grimm</span><span class="tcard-sep">·</span><span class="tcard-loc">Miami, US</span></div></div>
+        <div class="tcard-result">+41%<span class="tcard-result-label">in 3 months</span></div>
+        <img src="https://i.ibb.co/C5SRYwmw/imageye-imgi-72-k0-Hk-MKtytll1p-Bdo-I0-Yt-U3-FUc.webp" alt="Member result" class="tcard-img" loading="lazy">
+      </div>
+      <div class="tcard">
+        <div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Ben Davies</span><span class="tcard-sep">·</span><span class="tcard-loc">Cardiff, UK</span></div></div>
+        <div class="tcard-result">+59%<span class="tcard-result-label">in 4 months</span></div>
+        <img src="https://i.ibb.co/7xZJ2zb0/T2.png" alt="Member result" class="tcard-img" loading="lazy">
+      </div>
+      <div class="tcard">
+        <div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Lewis McCaulay</span><span class="tcard-sep">·</span><span class="tcard-loc">Perth, AUS</span></div></div>
+        <div class="tcard-result">+45%<span class="tcard-result-label">in 3 months</span></div>
+        <img src="https://i.ibb.co/cKLWnD3C/imageye-imgi-12-TKe-S26-Uq-M1c-UI6o0-QXJIGXLYUH0.webp" alt="Member result" class="tcard-img" loading="lazy">
+      </div>
+      <div class="tcard">
+        <div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Liam Patel</span><span class="tcard-sep">·</span><span class="tcard-loc">London, UK</span></div></div>
+        <div class="tcard-result">£1k<span class="tcard-result-label">in 5 days</span></div>
+        <img src="https://i.ibb.co/pBBSbX31/T3.png" alt="Member result" class="tcard-img" loading="lazy">
+      </div>
+      <div class="tcard">
+        <div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Sam Morley</span><span class="tcard-sep">·</span><span class="tcard-loc">Manchester, UK</span></div></div>
+        <div class="tcard-result">+69%<span class="tcard-result-label">in 5 months</span></div>
+        <img src="https://i.ibb.co/Hp3P6ZwZ/imageye-imgi-80-l93-GPm-HUp-Sp-Vy-OKuc-POb-BZLFA6s.webp" alt="Member result" class="tcard-img" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Mobile carousel -->
+    <div class="tcarousel" id="tcarousel">
+      <div class="tcarousel-track" id="ttrack">
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Sarah Jenkins</span><span class="tcard-sep">·</span><span class="tcard-loc">London, UK</span></div></div><div class="tcard-result">+15%<span class="tcard-result-label">in 1 month</span></div><img src="https://i.ibb.co/GQGnVN9Q/T1.png" alt="Member result" class="tcard-img" loading="lazy"></div>
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Carlton Grimm</span><span class="tcard-sep">·</span><span class="tcard-loc">Miami, US</span></div></div><div class="tcard-result">+41%<span class="tcard-result-label">in 3 months</span></div><img src="https://i.ibb.co/C5SRYwmw/imageye-imgi-72-k0-Hk-MKtytll1p-Bdo-I0-Yt-U3-FUc.webp" alt="Member result" class="tcard-img" loading="lazy"></div>
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Ben Davies</span><span class="tcard-sep">·</span><span class="tcard-loc">Cardiff, UK</span></div></div><div class="tcard-result">+59%<span class="tcard-result-label">in 4 months</span></div><img src="https://i.ibb.co/7xZJ2zb0/T2.png" alt="Member result" class="tcard-img" loading="lazy"></div>
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Lewis McCaulay</span><span class="tcard-sep">·</span><span class="tcard-loc">Perth, AUS</span></div></div><div class="tcard-result">+45%<span class="tcard-result-label">in 3 months</span></div><img src="https://i.ibb.co/cKLWnD3C/imageye-imgi-12-TKe-S26-Uq-M1c-UI6o0-QXJIGXLYUH0.webp" alt="Member result" class="tcard-img" loading="lazy"></div>
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Liam Patel</span><span class="tcard-sep">·</span><span class="tcard-loc">London, UK</span></div></div><div class="tcard-result">£1k<span class="tcard-result-label">in 5 days</span></div><img src="https://i.ibb.co/pBBSbX31/T3.png" alt="Member result" class="tcard-img" loading="lazy"></div>
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Sam Morley</span><span class="tcard-sep">·</span><span class="tcard-loc">Manchester, UK</span></div></div><div class="tcard-result">+69%<span class="tcard-result-label">in 5 months</span></div><img src="https://i.ibb.co/Hp3P6ZwZ/imageye-imgi-80-l93-GPm-HUp-Sp-Vy-OKuc-POb-BZLFA6s.webp" alt="Member result" class="tcard-img" loading="lazy"></div>
+      </div>
+      <div class="tcarousel-dots" id="tdots"></div>
+      <div class="tcarousel-btns">
+        <button id="tprev" aria-label="Previous">&#8592;</button>
+        <button id="tnext" aria-label="Next">&#8594;</button>
+      </div>
+    </div>
+
+    <p style="font-size:12px;color:rgba(255,255,255,.3);text-align:center;margin-top:36px;line-height:1.7;max-width:640px;margin-left:auto;margin-right:auto;position:relative;z-index:1">Past performance based on live tracked data since 2021. Results vary by market conditions. This does not constitute financial advice. Capital at risk.</p>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <h2 class="display">How Ace Algo Works</h2>
+    <div class="gold-divider"></div>
+    <p class="sec-sub">Three steps. Fully automated. Your money never leaves your control.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-card-body">
+          <h3>Open Your Account</h3>
+          <p>You open a regulated brokerage account in your own name at Vantage Markets. Your capital sits there under your full control — accessible whenever you want it. We never hold or touch your money.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-card-body">
+          <h3>The AI Goes to Work</h3>
+          <p>Ace Algo connects to your account and begins executing trades across multi-trillion dollar liquid markets — combining technical analysis with real-world fundamentals simultaneously, at a speed no human trader could match.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-card-body">
+          <h3>Watch It Compound</h3>
+          <p>Profits accumulate directly in your brokerage account. Withdraw to your bank or crypto whenever you choose. No lockups. No permission needed. Your money, your terms.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-rule">
+
+<!-- GUARANTEE -->
+<section id="guarantee">
+  <div class="container">
+    <div class="guarantee-inner">
+      <div class="guarantee-shield">🛡️</div>
+      <div class="guarantee-copy">
+        <h3>90-Day Money Back Guarantee — in writing</h3>
+        <p>Every member is protected by a full 90-day guarantee. If you're not satisfied with results, you get <strong>every penny back</strong>. No questions, no small print. We offer this because we know what the system delivers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BOTTOM -->
+<section id="cta-bottom">
+  <div class="container">
+    <div class="gold-divider"></div>
+    <h2 class="display">Questions? Message us directly.</h2>
+    <p>A member of the team will get back to you — tap the WhatsApp button below or send us a message and we'll be in touch.</p>
+    <a href="https://wa.me/447000000000?text=Hi%20Ace%20Algo%2C%20I%27ve%20just%20submitted%20an%20application%20and%20wanted%20to%20find%20out%20more%20about%20getting%20started." class="btn-gold" target="_blank" rel="noopener">Message Us on WhatsApp →</a>
+    <p style="font-size:13px;color:#555;margin-top:20px">Typically reply within a few hours during business hours.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <img src="https://i.ibb.co/fzv8dPxb/Blue-white.png" alt="Ace Algo" width="100" height="30" loading="lazy">
+      <p class="footer-copy">© 2025 Ace Algo. All rights reserved.</p>
+    </div>
+    <p class="footer-disc">Risk Warning: Trading CFDs and forex carries a high level of risk and may not be suitable for all investors. Past performance is not indicative of future results. The information on this page does not constitute financial advice. You could lose some or all of your invested capital. Ace Algo is not a regulated financial advisor.</p>
+  </div>
+</footer>
+
+<!-- WHATSAPP — different message for unqualified leads -->
+<div id="wa-widget">
+  <div class="wa-tooltip" id="wa-tooltip">
+    Have a question?<br>Message the team 👋
+  </div>
+  <!-- REPLACE +447XXXXXXXXX with your WhatsApp Business number -->
+  <a class="wa-btn"
+     href="https://wa.me/447000000000?text=Hi%20Ace%20Algo%2C%20I%27ve%20just%20submitted%20an%20application%20and%20wanted%20to%20find%20out%20more%20about%20getting%20started."
+     target="_blank" rel="noopener noreferrer" aria-label="Message Ace Algo on WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <div class="wa-pulse"></div>
+  </a>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  document.addEventListener('DOMContentLoaded', function(){
+
+    // Carousel
+    var track = document.getElementById('ttrack');
+    var dotsContainer = document.getElementById('tdots');
+    var prev = document.getElementById('tprev');
+    var next = document.getElementById('tnext');
+    if(track){
+      var cards = track.querySelectorAll('.tcard');
+      var total = cards.length;
+      var current = 0;
+      for(var i=0;i<total;i++){
+        var d=document.createElement('button');
+        d.setAttribute('aria-label','Go to slide '+(i+1));
+        if(i===0)d.classList.add('active');
+        (function(idx){d.addEventListener('click',function(){go(idx)})})(i);
+        dotsContainer.appendChild(d);
+      }
+      function go(idx){
+        current=idx;
+        var cardW=track.querySelector('.tcard').offsetWidth+8;
+        track.style.transform='translateX(-'+(current*cardW)+'px)';
+        dotsContainer.querySelectorAll('button').forEach(function(d,i){d.classList.toggle('active',i===current)});
+      }
+      if(prev)prev.addEventListener('click',function(){go((current-1+total)%total)});
+      if(next)next.addEventListener('click',function(){go((current+1)%total)});
+      var startX=0;
+      track.addEventListener('touchstart',function(e){startX=e.touches[0].clientX},{passive:true});
+      track.addEventListener('touchend',function(e){
+        var dx=e.changedTouches[0].clientX-startX;
+        if(Math.abs(dx)>40)go(dx<0?(current+1)%total:(current-1+total)%total);
+      },{passive:true});
+    }
+
+    // WhatsApp tooltip
+    var tooltip=document.getElementById('wa-tooltip');
+    if(tooltip){
+      setTimeout(function(){
+        tooltip.style.transition='opacity .4s';
+        tooltip.style.opacity='0';
+        setTimeout(function(){tooltip.style.display='none'},400);
+      },6000);
+      document.getElementById('wa-widget').addEventListener('click',function(){
+        if(tooltip)tooltip.style.display='none';
+      });
+    }
+
+  });
+})();
+</script>
+</body>
+</html>
