@@ -384,29 +384,34 @@ body{font-family:var(--font-body);background:var(--black);color:var(--white);lin
 .table-wrap::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
 table.comp{width:100%;border-collapse:separate;border-spacing:0;min-width:640px}
 table.comp thead tr{background:transparent}
+table.comp td{
+  padding:15px 10px;font-size:14px;text-align:center;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  color:#fff;vertical-align:middle;
+}
+table.comp td:first-child{text-align:left;color:#fff;font-weight:600;font-size:14px;background:transparent;padding:15px 4px 15px 0;width:100px;min-width:100px;max-width:100px}
+table.comp th:first-child{text-align:left;background:transparent;border-bottom:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:10px;width:100px;min-width:100px;max-width:100px;padding-left:0}
 table.comp th{
-  padding:16px 20px;font-size:11px;font-weight:700;
+  padding:16px 10px;font-size:11px;font-weight:700;
   text-align:center;letter-spacing:.1em;text-transform:uppercase;
   background:rgba(255,255,255,.10);color:#fff;
   border-bottom:1px solid rgba(255,255,255,.15);
 }
-table.comp th:first-child{text-align:left;background:transparent;border-bottom:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-size:10px}
 table.comp th.col-ace{
   background:var(--gold);color:var(--black);
   font-size:13px;letter-spacing:.06em;
   border-radius:10px 10px 0 0;position:relative;
+  min-width:80px;
 }
-table.comp th.col-ace::after{display:none}
+@media(max-width:768px){
+  table.comp td:first-child{width:70px;min-width:70px;max-width:70px;font-size:12px;padding:12px 2px 12px 0}
+  table.comp th:first-child{width:70px;min-width:70px;max-width:70px;padding-left:0}
+  table.comp td{padding:12px 6px}
+  table.comp th{padding:12px 6px}
+}
 table.comp th.col-other{color:#fff;font-size:12px}
 table.comp tbody tr{transition:background .15s}
 table.comp tbody tr:hover{background:rgba(255,255,255,.04)}
-table.comp td{
-  padding:15px 12px;font-size:14px;text-align:center;
-  border-bottom:1px solid rgba(255,255,255,.08);
-  color:#fff;vertical-align:middle;
-}
-table.comp td:first-child{text-align:left;color:#fff;font-weight:600;font-size:14px;background:transparent;padding:15px 6px 15px 4px;width:90px;min-width:90px}
-table.comp td.col-ace{
   background:rgba(201,168,76,.12);color:var(--gold-light);font-weight:700;font-size:15px;
   border-left:1px solid rgba(201,168,76,.3);border-right:1px solid rgba(201,168,76,.3);
 }
