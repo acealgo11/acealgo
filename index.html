@@ -382,7 +382,8 @@ body{font-family:var(--font-body);background:var(--black);color:var(--white);lin
 .table-wrap::-webkit-scrollbar{height:4px}
 .table-wrap::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:2px}
 .table-wrap::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
-table.comp{width:100%;border-collapse:separate;border-spacing:0;min-width:640px}
+table.comp{width:100%;border-collapse:separate;border-spacing:0;min-width:480px}
+@media(max-width:768px){table.comp{min-width:420px}}
 table.comp thead tr{background:transparent}
 table.comp td{
   padding:15px 10px;font-size:14px;text-align:center;
@@ -417,9 +418,11 @@ table.comp tbody tr:nth-child(odd) td.col-ace{background:rgba(201,168,76,.15)}
 .check{color:var(--gold);font-size:17px;font-weight:700}
 .cross{
   display:inline-flex;align-items:center;justify-content:center;
-  width:24px;height:24px;border-radius:50%;
+  min-width:24px;height:24px;border-radius:12px;
   background:rgba(255,255,255,.12);
-  color:#fff;font-size:14px;font-weight:700;
+  color:#fff;font-size:13px;font-weight:700;
+  padding:0 6px;
+  white-space:nowrap;
 }
 .dash{
   color:#fff;font-size:13px;
