@@ -241,7 +241,7 @@ a{color:inherit;text-decoration:none}
 .why-card p{font-size:14px;color:rgba(255,255,255,.7);line-height:1.75}
 
 /* BROKER — white bg, 2x2 grid + Vantage card below */
-#broker{background:var(--navy);padding:100px 0}
+#broker{background:var(--navy);padding:100px 0;overflow:visible}
 #broker h2{font-family:var(--font-display);font-size:clamp(28px,3.5vw,48px);font-weight:900;color:#fff;letter-spacing:-.02em;margin-bottom:14px}
 #broker .sec-sub{font-size:17px;color:rgba(255,255,255,.75);max-width:520px;margin-bottom:48px;line-height:1.7}
 .broker-points-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
@@ -264,25 +264,16 @@ a{color:inherit;text-decoration:none}
 .broker-carousel{display:none}
 @media(max-width:640px){
   .broker-points-grid{display:none}
-  .broker-carousel{display:block;margin-bottom:20px}
-  .broker-carousel-track{
-    display:flex;
-    overflow-x:scroll;
-    scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-    gap:12px;
-    padding:0 20px;
-  }
-  .broker-carousel-track::-webkit-scrollbar{display:none}
-  .broker-carousel-track .broker-point{min-width:82%;max-width:82%;flex-shrink:0;scroll-snap-align:start;box-sizing:border-box;}
+  .broker-carousel{display:block;margin-bottom:20px;overflow:hidden}
+  .broker-carousel-track{display:flex;transition:transform .3s ease;padding-left:20px}
+  .broker-carousel-track .broker-point{min-width:82%;max-width:82%;flex-shrink:0;margin-right:12px;box-sizing:border-box}
   .broker-dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
   .broker-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(255,255,255,.25);cursor:pointer;padding:0;transition:background .2s}
   .broker-dots button.active{background:var(--gold)}
 }
 
 /* TESTIMONIALS */
-#testimonials{background:var(--white-soft);padding:100px 0;position:relative;overflow:hidden}
+#testimonials{background:var(--white-soft);padding:100px 0;position:relative;overflow:visible}
 #testimonials::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%233533CD' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
 #testimonials h2{font-family:var(--font-display);font-size:clamp(28px,3.5vw,48px);font-weight:900;color:var(--black);letter-spacing:-.02em;margin-bottom:12px;position:relative;z-index:1;text-align:center}
 .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;z-index:1}
@@ -290,22 +281,9 @@ a{color:inherit;text-decoration:none}
 @media(max-width:768px){.tgrid{display:none}}
 .tcarousel{display:none}
 @media(max-width:768px){
-  .tcarousel{display:block;position:relative;z-index:1}
-  .tcarousel-track{
-    display:flex;
-    overflow-x:scroll;
-    scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-    gap:12px;
-    padding:0 20px 0 20px;
-  }
-  .tcarousel-track::-webkit-scrollbar{display:none}
-  .tcarousel-track .tcard{
-    min-width:82%;max-width:82%;flex-shrink:0;
-    scroll-snap-align:start;
-    box-sizing:border-box;
-  }
+  .tcarousel{display:block;position:relative;z-index:1;overflow:hidden}
+  .tcarousel-track{display:flex;transition:transform .3s ease;padding-left:20px}
+  .tcarousel-track .tcard{min-width:82%;max-width:82%;flex-shrink:0;margin-right:12px;box-sizing:border-box}
   .tcarousel-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
   .tcarousel-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(0,0,0,.2);cursor:pointer;padding:0;transition:background .2s,transform .2s}
   .tcarousel-dots button.active{background:var(--gold);transform:scale(1.3)}
@@ -927,26 +905,34 @@ a{color:inherit;text-decoration:none}
       track.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)goT(dx<0?(cur+1)%total:(cur-1+total)%total)},{passive:true});
     }
 
-    // Broker carousel — native scroll snap
+    // Broker carousel
     (function(){
+      var bcarousel=document.getElementById('broker-carousel');
       var bt=document.getElementById('broker-track');
       var bd=document.getElementById('broker-dots');
-      if(!bt)return;
+      if(!bt||!bcarousel)return;
       var bCards=Array.prototype.slice.call(bt.querySelectorAll('.broker-point'));
-      var bn=bCards.length;
+      var bn=bCards.length,bCur=0,bStartX=0,bDrag=false;
+      function bStep(){return bcarousel.offsetWidth*0.82+12;}
+      function goB(i){
+        bCur=((i%bn)+bn)%bn;
+        bt.style.transform='translateX(-'+(bCur*bStep())+'px)';
+        if(bd)bd.querySelectorAll('button').forEach(function(d,j){d.classList.toggle('active',j===bCur)});
+      }
       if(bd){
         bCards.forEach(function(_,i){
           var d=document.createElement('button');
           if(i===0)d.classList.add('active');
-          d.addEventListener('click',function(){
-            bt.scrollTo({left:bCards[i].offsetLeft-20,behavior:'smooth'});
-          });
+          d.addEventListener('click',function(){goB(i)});
           bd.appendChild(d);
         });
       }
-      bt.addEventListener('scroll',function(){
-        var idx=Math.round(bt.scrollLeft/(bt.scrollWidth/bn));
-        if(bd)bd.querySelectorAll('button').forEach(function(d,i){d.classList.toggle('active',i===idx)});
+      bt.addEventListener('touchstart',function(e){bStartX=e.touches[0].clientX;bDrag=true;},{passive:true});
+      bt.addEventListener('touchend',function(e){
+        if(!bDrag)return;
+        bDrag=false;
+        var dx=e.changedTouches[0].clientX-bStartX;
+        if(Math.abs(dx)>30)goB(dx<0?bCur+1:bCur-1);
       },{passive:true});
     })();
 
