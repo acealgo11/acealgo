@@ -147,7 +147,7 @@ a{color:inherit;text-decoration:none}
 
 /* TICKER */
 #ticker{background:var(--gold);padding:12px 0;overflow:hidden}
-.ticker-track{display:flex;animation:tickerScroll 18s linear infinite;white-space:nowrap}
+.ticker-track{display:flex;white-space:nowrap;will-change:transform}
 .ticker-item{display:flex;align-items:center;gap:8px;padding:0 40px;font-family:var(--font-display);font-size:13px;font-weight:700;color:#000;letter-spacing:.04em;text-transform:uppercase}
 .ticker-dot{width:6px;height:6px;border-radius:50%;background:#000;opacity:.4;flex-shrink:0}
 @keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
@@ -904,7 +904,7 @@ a{color:inherit;text-decoration:none}
       track.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)goT(dx<0?(cur+1)%total:(cur-1+total)%total)},{passive:true});
     }
 
-    // Broker carousel — swipe only
+    // Broker carousel — swipe
     (function(){
       var bt=document.getElementById('broker-track');
       var bd=document.getElementById('broker-dots');
@@ -924,19 +924,33 @@ a{color:inherit;text-decoration:none}
         bt.style.transform='translateX(-'+(bCur*w)+'px)';
         bd.querySelectorAll('button').forEach(function(d,i){d.classList.toggle('active',i===bCur)});
       }
-      var bx0=0;
-      bt.addEventListener('touchstart',function(e){bx0=e.touches[0].clientX},{passive:true});
+      var bx0=0;var bmoved=false;
+      bt.addEventListener('touchstart',function(e){bx0=e.touches[0].clientX;bmoved=false;},{passive:true});
+      bt.addEventListener('touchmove',function(e){
+        var dx=e.touches[0].clientX-bx0;
+        if(Math.abs(dx)>10){bmoved=true;e.preventDefault();}
+      },{passive:false});
       bt.addEventListener('touchend',function(e){
+        if(!bmoved)return;
         var dx=e.changedTouches[0].clientX-bx0;
-        if(Math.abs(dx)>40){goB(dx<0?bCur+1:bCur-1);}
+        if(Math.abs(dx)>30)goB(dx<0?bCur+1:bCur-1);
       },{passive:true});
-      var bpx=0;var bdrag=false;
-      bt.addEventListener('pointerdown',function(e){bpx=e.clientX;bdrag=true;},{passive:true});
-      bt.addEventListener('pointerup',function(e){
-        if(!bdrag)return;bdrag=false;
-        var dx=e.clientX-bpx;
-        if(Math.abs(dx)>40){goB(dx<0?bCur+1:bCur-1);}
-      },{passive:true});
+    })();
+
+    // Ticker — JS driven so speed is consistent on all devices
+    (function(){
+      var track = document.querySelector('.ticker-track');
+      if(!track) return;
+      var pos = 0;
+      var speed = 0.6; // px per frame — increase for faster
+      var halfW = track.scrollWidth / 2;
+      function tick(){
+        pos += speed;
+        if(pos >= halfW) pos = 0;
+        track.style.transform = 'translateX(-' + pos + 'px)';
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
     })();
 
     // FAQ accordion
