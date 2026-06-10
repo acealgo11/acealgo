@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ace Algo — AI Algorithmic Trading Platform</title>
+<meta name="description" content="Ace Algo is a fully automated AI trading algorithm that compounds your portfolio inside your own regulated brokerage account. 5–17% monthly returns tracked since 2021. No charts, no screen time, no guesswork.">
+<meta name="keywords" content="AI trading algorithm, automated trading, algorithmic trading UK, passive investing, AI investing, pension alternative, automated portfolio growth">
+<meta property="og:title" content="Ace Algo — AI Algorithmic Trading Platform">
+<meta property="og:description" content="Fully automated AI trading algorithm. Your money, your account, growing on your terms.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://acealgo.ai">
+<link rel="canonical" href="https://acealgo.ai">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap"></noscript>
+<style>
+:root{
+  --black:#000000;
+  --navy:#0A0A1A;
+  --navy-mid:#0d0c3a;
+  --blue:#3533CD;
+  --gold:#C9A84C;
+  --gold-light:#E8C96A;
+  --white:#FFFFFF;
+  --white-soft:#F0F0F0;
+  --text-muted:#A0A0B0;
+  --gradient-brand:linear-gradient(135deg,#000000 0%,#0a0830 35%,#1e1acc 70%,#3533CD 100%);
+  --gradient-gold:linear-gradient(90deg,var(--gold),var(--gold-light));
+  --font-display:'Poppins',sans-serif;
+  --font-body:'DM Sans','Helvetica Neue',sans-serif;
+  --nav-h:72px;
+  --max-w:1140px;
+  --pad-x:clamp(20px,5vw,64px);
+  --radius:12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-body);background:var(--black);color:var(--white);line-height:1.6;overflow-x:hidden;font-size:16px}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+.container{max-width:var(--max-w);margin:0 auto;padding:0 var(--pad-x)}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:14px}
+.gold{color:var(--gold)}
+.gold-rule{height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.6),transparent);border:none;margin:0}
+.gold-divider{width:48px;height:3px;background:var(--gold);margin:0 auto 24px;border-radius:2px}
+.gold-divider.left{margin-left:0}
+
+
+/* Candlestick background graphic */
+.hero-candles{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.13;
+  z-index:0;
+  overflow:hidden;
+}
+.hero-candles svg{width:100%;height:100%;position:absolute;top:0;left:0}
+
+/* PDF MODAL */
+#pdf-modal{display:none;position:fixed;inset:0;z-index:999;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px}
+#pdf-modal.open{display:flex}
+#pdf-modal-inner{position:relative;width:100%;max-width:860px;height:90vh;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.5)}
+#pdf-close{position:absolute;top:12px;right:12px;z-index:10;width:36px;height:36px;border-radius:50%;background:#000;color:#fff;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:background .2s}
+#pdf-close:hover{background:var(--gold-light);color:#000}
+#pdf-iframe{width:100%;height:100%;border:none}
+@media(max-width:600px){#pdf-modal{padding:0}#pdf-modal-inner{border-radius:0;height:100vh}}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);background:rgba(0,0,0,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(201,168,76,.4);transition:background .3s}
+.nav-inner{max-width:var(--max-w);margin:0 auto;padding:0 var(--pad-x);height:100%;display:flex;align-items:center;justify-content:space-between}
+.nav-logo img{height:32px;width:auto}
+.nav-links{display:flex;align-items:center;gap:36px;list-style:none}
+.nav-links a{font-size:15px;font-weight:700;color:#ffffff;transition:color .2s;letter-spacing:.01em}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{background:var(--gold);color:#000;font-family:var(--font-body);font-weight:700;font-size:14px;padding:10px 26px;border-radius:4px;transition:background .18s,box-shadow .18s;white-space:nowrap;position:relative;overflow:hidden}
+.nav-cta::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.35) 50%,transparent 60%);transform:translateX(-100%);animation:shimmer 3s infinite}
+.nav-cta:hover{background:var(--gold-light);box-shadow:0 0 24px rgba(201,168,76,.4)}
+.nav-mobile-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.nav-mobile-toggle span{width:24px;height:2px;background:#fff;border-radius:2px;display:block}
+@media(max-width:860px){
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;align-items:flex-start;gap:0;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(0,0,0,.97);padding:24px var(--pad-x) 32px;border-bottom:1px solid rgba(201,168,76,.3)}
+  .nav-links.open li{width:100%;border-bottom:1px solid rgba(255,255,255,.07)}
+  .nav-links.open a{display:block;padding:16px 0;font-size:16px}
+  .nav-mobile-toggle{display:flex}
+  .nav-cta-desktop{display:none!important}
+  .nav-links.open .nav-cta-li{display:block;margin-top:20px;width:100%}
+  .nav-links.open .nav-cta-li a{display:block;text-align:center;padding:14px;background:var(--gold);color:#000;border-radius:4px;font-weight:700}
+}
+@media(min-width:861px){.nav-cta-li{display:none}}
+
+/* HERO */
+#hero{background:linear-gradient(135deg,#000000 0%,#080623 30%,#1e1acc 70%,#3533CD 100%);display:flex;align-items:center;padding-top:calc(var(--nav-h) + 120px);padding-bottom:140px;position:relative;overflow:hidden}
+#hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(53,51,205,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(53,51,205,.06) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+#hero::after{content:'';position:absolute;top:20%;left:60%;width:700px;height:700px;background:radial-gradient(circle,rgba(53,51,205,.35) 0%,transparent 65%);pointer-events:none;transform:translateX(-50%)}
+.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:48px}}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.4);border-radius:100px;padding:7px 18px;margin-bottom:28px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.hero-tag-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px rgba(34,197,94,.8);animation:pulse 1.8s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-h1{font-family:var(--font-display);font-size:clamp(28px,3.8vw,54px);font-weight:900;line-height:1.1;letter-spacing:-.03em;color:#fff;margin-bottom:22px}
+.hero-h1 em{font-style:normal;color:var(--gold)}
+.hero-sub{font-size:clamp(15px,1.6vw,17px);color:rgba(255,255,255,.82);font-weight:300;line-height:1.75;max-width:480px;margin-bottom:36px}
+.hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.btn-primary{display:inline-block;background:var(--gold);color:#000;font-family:var(--font-body);font-weight:800;font-size:16px;padding:16px 36px;border-radius:5px;position:relative;overflow:hidden;transition:background .18s,box-shadow .18s,transform .18s}
+.btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.4) 50%,transparent 60%);transform:translateX(-100%);animation:shimmer 2.5s infinite}
+.btn-primary:hover{background:var(--gold-light);box-shadow:0 8px 40px rgba(201,168,76,.45);transform:translateY(-2px)}
+.btn-ghost{display:inline-block;background:transparent;color:#fff;font-family:var(--font-body);font-weight:600;font-size:15px;padding:15px 28px;border-radius:5px;border:1px solid rgba(255,255,255,.25);transition:border-color .2s,color .2s}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
+.hero-proof{display:flex;align-items:center;gap:12px;margin-top:28px}
+.hero-avatars{display:flex}
+.hero-avatars img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #000;margin-left:-10px;display:block}
+.hero-avatars img:first-child{margin-left:0}
+.hero-proof-text{font-size:13px;color:rgba(255,255,255,.7)}
+.hero-proof-text strong{color:#fff}
+
+/* Hero card — no floating badge */
+.hero-right{position:relative}
+.hero-card{background:rgba(8,6,35,0.85);border:1px solid rgba(201,168,76,.5);border-radius:16px;padding:32px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:relative;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+.hero-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(53,51,205,.1) 0%,transparent 60%);pointer-events:none}
+.hero-card-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.perf-rows{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.perf-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.perf-row-label{font-size:13px;color:rgba(255,255,255,.7);font-weight:500;min-width:80px}
+.perf-bar-wrap{flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
+.perf-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));transform-origin:left;animation:growBar .8s ease-out forwards}
+@keyframes growBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.perf-val{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--gold);min-width:40px;text-align:right}
+.hero-card-divider{height:1px;background:rgba(255,255,255,.07);margin:20px 0}
+.hero-card-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hcs-item{text-align:center}
+.hcs-num{font-family:var(--font-display);font-size:22px;font-weight:900;color:#fff;display:block;margin-bottom:2px}
+.hcs-desc{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em}
+
+/* TICKER */
+#ticker{background:var(--gold);padding:12px 0;overflow:hidden}
+.ticker-track{display:flex;animation:tickerScroll 30s linear infinite;white-space:nowrap}
+.ticker-item{display:flex;align-items:center;gap:8px;padding:0 40px;font-family:var(--font-display);font-size:13px;font-weight:700;color:#000;letter-spacing:.04em;text-transform:uppercase}
+.ticker-dot{width:6px;height:6px;border-radius:50%;background:#000;opacity:.4;flex-shrink:0}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* PROBLEM */
+#problem{background:var(--white-soft);padding:100px 0}
+#problem h2{font-family:var(--font-display);font-size:clamp(28px,3.5vw,48px);font-weight:900;color:var(--black);letter-spacing:-.02em;margin-bottom:14px}
+#problem .sec-sub{font-size:17px;color:#333;max-width:520px;margin-bottom:56px;line-height:1.7}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:720px){.compare-grid{grid-template-columns:1fr}}
+.compare-col{border-radius:var(--radius);overflow:hidden}
+.compare-col-header{padding:20px 28px;font-family:var(--font-display);font-size:15px;font-weight:700}
+.compare-col.bad .compare-col-header{background:#f0f0f0;color:#333;border:1px solid #ddd;border-bottom:none;border-radius:var(--radius) var(--radius) 0 0}
+.compare-col.good .compare-col-header{background:var(--black);color:var(--gold);border:1px solid rgba(201,168,76,.4);border-bottom:none;border-radius:var(--radius) var(--radius) 0 0}
+.compare-items{list-style:none}
+.compare-item{display:flex;align-items:flex-start;gap:14px;padding:16px 28px;font-size:15px;line-height:1.55;border-left:1px solid #ddd;border-right:1px solid #ddd;border-bottom:1px solid #eee}
+.compare-col.good .compare-item{border-color:rgba(201,168,76,.25);border-bottom-color:rgba(201,168,76,.12);color:#fff;background:rgba(0,0,0,.97)}
+.compare-col.bad .compare-item{color:#444;background:#fff}
+.compare-col.good .compare-items{border-bottom:1px solid rgba(201,168,76,.25)}
+.compare-col.bad .compare-items{border-bottom:1px solid #ddd}
+
+/* HOW IT WORKS */
+#how{background:var(--navy);padding:100px 0;position:relative;overflow:hidden}
+#how::before{content:'';position:absolute;bottom:-100px;right:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(53,51,205,.22) 0%,transparent 65%);pointer-events:none}
+#how h2{font-family:var(--font-display);font-size:clamp(28px,3.5vw,48px);font-weight:900;color:#fff;letter-spacing:-.02em;margin-bottom:14px;position:relative;z-index:1}
+#how .sec-sub{font-size:17px;color:rgba(255,255,255,.75);max-width:480px;margin-bottom:60px;line-height:1.7;position:relative;z-index:1}
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;position:relative;z-index:1}
+@media(max-width:840px){.how-steps{grid-template-columns:1fr}}
+.how-step{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.2);padding:40px 32px;position:relative;transition:border-color .2s,transform .2s;border-radius:var(--radius)}
+.how-step:hover{border-color:rgba(201,168,76,.6);transform:translateY(-3px)}
+.how-step-num{font-family:var(--font-display);font-size:56px;font-weight:900;color:#ffffff;line-height:1;margin-bottom:20px;display:block}
+.how-step h3{font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;margin-bottom:12px}
+.how-step p{font-size:15px;color:rgba(255,255,255,.72);line-height:1.75}
+.how-step-icon{width:44px;height:44px;border-radius:10px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:20px}
+
+/* STATS */
+#stats{background:var(--black);border-top:1px solid rgba(201,168,76,.2);border-bottom:1px solid rgba(201,168,76,.2)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+@media(max-width:640px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-item{padding:48px 28px;text-align:center;border-right:1px solid rgba(201,168,76,.15);position:relative}
+.stat-item::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100px;height:100px;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 70%);pointer-events:none}
+.stat-item:last-child{border-right:none}
+@media(max-width:640px){
+  .stat-item{padding:24px 16px;border-right:none;border-bottom:1px solid rgba(201,168,76,.15)}
+  .stat-item:nth-child(odd){border-right:1px solid rgba(201,168,76,.15)}
+  .stat-item:nth-child(3),.stat-item:nth-child(4){border-bottom:none}
+}
+.stat-num{font-family:var(--font-display);font-size:clamp(24px,3vw,38px);font-weight:900;color:var(--gold);display:block;margin-bottom:6px;text-shadow:0 0 30px rgba(201,168,76,.25);letter-spacing:-.01em}
+.stat-label{font-size:12px;color:#aaa;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.stat-rule{width:24px;height:1px;background:var(--gold);opacity:.35;margin:8px auto 0}
+
+/* PERFORMANCE */
+#performance{background:var(--white-soft);padding:100px 0}
+#performance h2{font-family:var(--font-display);font-size:clamp(28px,3.5vw,48px);font-weight:900;color:var(--black);letter-spacing:-.02em;margin-bottom:12px;text-align:center}
+#performance .sec-sub{font-size:17px;color:#333;max-width:520px;margin:0 auto 48px;line-height:1.7;text-align:center}
+/* Toggle */
+.perf-toggle{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:40px;background:#e4e4e4;border-radius:8px;padding:4px;width:fit-content;margin-left:auto;margin-right:auto}
+.perf-tab{background:transparent;border:none;padding:10px 32px;border-radius:6px;font-family:var(--font-body);font-size:14px;font-weight:700;color:#666;cursor:pointer;transition:all .2s}
+.perf-tab.active{background:#fff;color:var(--black);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.perf-panel{display:none}
+.perf-panel.active{display:block}
+.profile-card{background:#fff;border-radius:var(--radius);border:1px solid rgba(0,0,0,.08);overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.06);max-width:640px;margin:0 auto}
+.profile-head{padding:28px 32px;border-bottom:1px solid rgba(0,0,0,.06)}
+.profile-tag{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:4px}
+.profile-label{font-size:14px;color:#666;display:block;margin-bottom:8px}
+.profile-ret{font-family:var(--font-display);font-size:32px;font-weight:900;color:var(--gold);letter-spacing:-.01em}
+.profile-ret span{font-size:15px;color:#888;font-weight:400;margin-left:6px}
+.months-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;padding:0}
+.month{padding:16px 12px;text-align:center;border-right:1px solid rgba(0,0,0,.06)}
+.month:last-child{border-right:none}
+.mn{font-size:11px;color:#888;font-weight:600;letter-spacing:.06em;margin-bottom:6px}
+.mv{font-family:var(--font-display);font-size:18px;font-weight:900}
+.mv.pos{color:#16a34a}
+.profile-foot{padding:16px 32px;border-top:1px solid rgba(0,0,0,.06)}
+.btn-breakdown{background:none;border:none;color:var(--blue);font-size:14px;font-weight:600;cursor:pointer;padding:0;transition:color .2s}
+.btn-breakdown:hover{color:var(--gold)}
+.perf-disclaimer{font-size:12px;color:#888;margin-top:28px;line-height:1.7;max-width:640px;margin-left:auto;margin-right:auto;text-align:center}
+
+/* WHY */
+#why{background:var(--black);padding:100px 0;position:relative;overflow:hidden}
+#why::before{content:'';position:absolute;top:-100px;left:-100px;width:700px;height:700px;background:radial-gradient(circle,rgba(53,51,205,.15) 0%,transparent 65%);pointer-events:none}
+#why h2{font-family:var(--font-display);font-size:clamp(28px,3.5vw,48px);font-weight:900;color:#fff;letter-spacing:-.02em;margin-bottom:14px;position:relative;z-index:1}
+#why .sec-sub{font-size:17px;color:rgba(255,255,255,.7);max-width:480px;margin-bottom:60px;line-height:1.7;position:relative;z-index:1}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;z-index:1}
+@media(max-width:840px){.why-grid{grid-template-columns:1fr}}
+.why-card{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.2);border-radius:var(--radius);padding:36px 30px;transition:border-color .2s,transform .2s}
+.why-card:hover{border-color:rgba(201,168,76,.6);transform:translateY(-3px)}
+.why-card-icon{font-size:28px;margin-bottom:18px}
+.why-card h3{font-family:var(--font-display);font-size:18px;font-weight:700;color:#fff;margin-bottom:10px}
+.why-card p{font-size:14px;color:rgba(255,255,255,.7);line-height:1.75}
+
+/* BROKER — white bg, 2x2 grid + Vantage card below */
+#broker{background:var(--navy);padding:100px 0}
+#broker h2{font-family:var(--font-display);font-size:clamp(28px,3.5vw,48px);font-weight:900;color:#fff;letter-spacing:-.02em;margin-bottom:14px}
+#broker .sec-sub{font-size:17px;color:rgba(255,255,255,.75);max-width:520px;margin-bottom:48px;line-height:1.7}
+.broker-points-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+@media(max-width:640px){.broker-points-grid{grid-template-columns:1fr}}
+.broker-point{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,.07);border:1px solid rgba(201,168,76,.55);border-radius:10px;padding:24px 24px;transition:border-color .2s,background .2s}
+.broker-point:hover{border-color:var(--gold);background:rgba(255,255,255,.1)}
+.broker-point-icon{width:40px;height:40px;border-radius:8px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.broker-point-body h4{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+.broker-point-body p{font-size:13px;color:rgba(255,255,255,.65);line-height:1.6}
+/* Vantage card */
+.vantage-card{background:var(--navy);border:1px solid rgba(201,168,76,.3);border-radius:var(--radius);padding:32px 36px;display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+.vantage-logo-wrap{flex-shrink:0}
+.vantage-logo-wrap img{height:48px;width:auto;filter:brightness(10)}
+.vantage-creds{flex:1;min-width:220px}
+.cred{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:14px;color:rgba(255,255,255,.85);line-height:1.5}
+.cred:last-child{margin-bottom:0}
+.cred-check{color:var(--gold);font-weight:700;flex-shrink:0;margin-top:1px}
+
+/* Mobile carousel for broker */
+.broker-carousel{display:none}
+@media(max-width:640px){
+  .broker-points-grid{display:none}
+  .broker-carousel{display:block;overflow:hidden;width:calc(100% + 40px);margin-left:-20px;margin-bottom:20px}
+  .broker-carousel-track{display:flex;transition:transform .35s ease;padding-left:20px}
+  .broker-carousel-track .broker-point{min-width:80%;max-width:80%;flex-shrink:0;margin-right:10px}
+  .broker-dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
+  .broker-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(255,255,255,.25);cursor:pointer;padding:0;transition:background .2s}
+  .broker-dots button.active{background:var(--gold)}
+}
+
+/* TESTIMONIALS */
+#testimonials{background:var(--white-soft);padding:100px 0;position:relative;overflow:hidden}
+#testimonials::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%233533CD' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+#testimonials h2{font-family:var(--font-display);font-size:clamp(28px,3.5vw,48px);font-weight:900;color:var(--black);letter-spacing:-.02em;margin-bottom:12px;position:relative;z-index:1;text-align:center}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;z-index:1}
+@media(max-width:900px){.tgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.tgrid{display:none}}
+.tcarousel{display:none}
+@media(max-width:768px){
+  .tcarousel{display:block;position:relative;z-index:1;overflow:hidden;width:calc(100% + 40px);margin-left:-20px}
+  .tcarousel-track{display:flex;transition:transform .35s ease;will-change:transform;padding-left:20px}
+  .tcarousel-track .tcard{min-width:80%;max-width:80%;flex-shrink:0;margin:0 10px 0 0;box-sizing:border-box}
+  .tcarousel-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
+  .tcarousel-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(0,0,0,.2);cursor:pointer;padding:0;transition:background .2s,transform .2s}
+  .tcarousel-dots button.active{background:var(--gold);transform:scale(1.3)}
+}
+.tcard{background:#fff;border:1px solid rgba(0,0,0,.08);border-shadow:0 4px 20px rgba(0,0,0,.06);border-radius:var(--radius);padding:28px 26px;transition:border-color .2s,transform .2s;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.tcard:hover{border-color:var(--gold);transform:translateY(-3px)}
+.tcard-top{margin-bottom:12px}
+.tcard-identity{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tcard-name{font-weight:700;font-size:16px;color:var(--black)}
+.tcard-sep{color:rgba(201,168,76,.5);font-size:12px}
+.tcard-loc{font-size:12px;color:#666}
+.tcard-result{font-family:var(--font-display);font-weight:900;font-size:28px;color:var(--gold);display:block;margin-bottom:14px;letter-spacing:-.01em}
+.tcard-result-label{font-size:13px;color:#ccc;font-weight:400;margin-left:4px}
+.tcard-img{width:100%;border-radius:8px;object-fit:contain;border:1px solid rgba(201,168,76,.15);background:#000}
+
+/* FAQ */
+#faq{background:var(--white-soft);padding:100px 0}
+#faq h2{font-family:var(--font-display);font-size:clamp(28px,3.5vw,48px);font-weight:900;color:var(--black);letter-spacing:-.02em;margin-bottom:12px;text-align:center}
+#faq .sec-sub{font-size:17px;color:#333;max-width:480px;margin:0 auto 48px;line-height:1.7;text-align:center}
+.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:0}
+.faq-item{border-bottom:1px solid rgba(0,0,0,.09)}
+.faq-item:first-child{border-top:1px solid rgba(0,0,0,.09)}
+.faq-btn{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:20px 0;background:none;border:none;cursor:pointer;text-align:left;transition:border-left .2s,padding-left .2s}
+.faq-item.open .faq-btn{border-left:3px solid var(--gold);padding-left:12px}
+.faq-q{font-size:16px;font-weight:600;color:var(--black);line-height:1.4}
+.faq-icon{width:28px;height:28px;border-radius:50%;background:var(--black);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:transform .25s,background .2s}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:var(--gold);color:var(--black)}
+.faq-body{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s}
+.faq-item.open .faq-body{max-height:300px;padding:0 4px 20px}
+.faq-item.open .faq-btn~.faq-body{padding-left:15px}
+.faq-a{font-size:15px;color:#333;line-height:1.75}
+
+/* CTA FINAL */
+#cta-final{background:var(--gradient-brand);padding:100px 0;position:relative;overflow:hidden;text-align:center}
+#cta-final::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(53,51,205,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(53,51,205,.06) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+#cta-final::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:400px;background:radial-gradient(ellipse,rgba(53,51,205,.3) 0%,transparent 65%);pointer-events:none}
+.cta-final-inner{position:relative;z-index:1}
+#cta-final h2{font-family:var(--font-display);font-size:clamp(28px,4vw,54px);font-weight:900;color:#fff;letter-spacing:-.02em;margin-bottom:18px;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.1}
+#cta-final p{font-size:18px;color:rgba(255,255,255,.82);max-width:500px;margin:0 auto 40px;line-height:1.7;font-weight:300}
+.cta-final-actions{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+.cta-trial{font-size:15px;font-weight:700;color:var(--gold);margin-top:20px;letter-spacing:.02em}
+
+/* FOOTER */
+#footer{background:#000;border-top:1px solid rgba(255,255,255,.06);padding:64px 0 40px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+@media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){.footer-grid{grid-template-columns:1fr}}
+.footer-brand img{height:30px;width:auto;margin-bottom:16px}
+.footer-brand p{font-size:14px;color:#999;line-height:1.7;max-width:260px}
+.footer-col h4{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;margin-bottom:16px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col a{font-size:14px;color:#999;transition:color .2s}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:28px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-copy{font-size:13px;color:#888}
+.footer-disc{font-size:11px;color:#666;line-height:1.7;max-width:700px}
+
+/* NAV SECTION LABELS */
+.nav-section-label{
+  display:inline-block;
+  font-family:var(--font-display);
+  font-size:clamp(28px,3.5vw,48px);
+  font-weight:900;
+  color:#fff;
+  letter-spacing:-.02em;
+}
+</style>
+</head>
+<body>
+
+<!-- PDF MODAL -->
+<div id="pdf-modal" role="dialog" aria-modal="true" aria-label="Performance breakdown">
+  <div id="pdf-modal-inner">
+    <button id="pdf-close" onclick="closePdf()" aria-label="Close">✕</button>
+    <iframe id="pdf-iframe" src="" title="Performance Breakdown"></iframe>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="/" aria-label="Ace Algo home">
+      <img src="https://i.ibb.co/fzv8dPxb/Blue-white.png" alt="Ace Algo" width="110" height="32" loading="eager">
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#performance">Performance</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li class="nav-cta-li"><a href="https://app.iclosed.io/e/acealgo/ace-algo-advisory-call">Apply Now</a></li>
+    </ul>
+    <a href="https://app.iclosed.io/e/acealgo/ace-algo-advisory-call" class="nav-cta nav-cta-desktop" id="nav-cta-desktop">Apply Now</a>
+    <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+
+  <!-- Candlestick background -->
+  <div class="hero-candles" aria-hidden="true">
+    <svg viewBox="0 0 1400 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <!-- Candles arranged diagonally: bottom-left starts low (y~580), top-right ends high (y~80) -->
+      <!-- Each candle: centre x, wick_top, wick_bot, body_top, body_h, filled -->
+      <!-- Col 1 — far bottom left, tall bodies low on screen -->
+      <line x1="42"   y1="480" x2="42"   y2="660" stroke="#fff" stroke-width="1.5"/>
+      <rect x="30"    y="510"  width="24" height="110" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
+      <line x1="92"   y1="460" x2="92"   y2="650" stroke="#fff" stroke-width="1.5"/>
+      <rect x="80"    y="490"  width="24" height="120" fill="none" stroke="#fff" stroke-width="1.5" rx="1"/>
+      <line x1="142"  y1="440" x2="142"  y2="630" stroke="#fff" stroke-width="1.5"/>
+      <rect x="130"   y="470"  width="24" height="110" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
+      <!-- Col 2 -->
+      <line x1="220"  y1="390" x2="220"  y2="590" stroke="#fff" stroke-width="1.5"/>
+      <rect x="208"   y="420"  width="24" height="120" fill="none" stroke="#fff" stroke-width="1.5" rx="1"/>
+      <line x1="270"  y1="370" x2="270"  y2="570" stroke="#fff" stroke-width="1.5"/>
+      <rect x="258"   y="400"  width="24" height="110" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
+      <line x1="320"  y1="350" x2="320"  y2="560" stroke="#fff" stroke-width="1.5"/>
+      <rect x="308"   y="385"  width="24" height="125" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
+      <!-- Col 3 -->
+      <line x1="400"  y1="300" x2="400"  y2="510" stroke="#fff" stroke-width="1.5"/>
+      <rect x="388"   y="330"  width="24" height="130" fill="none" stroke="#fff" stroke-width="1.5" rx="1"/>
+      <line x1="450"  y1="280" x2="450"  y2="490" stroke="#fff" stroke-width="1.5"/>
+      <rect x="438"   y="310"  width="24" height="120" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
+      <line x1="500"  y1="260" x2="500"  y2="470" stroke="#fff" stroke-width="1.5"/>
+      <rect x="488"   y="290"  width="24" height="130" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
+      <!-- Col 4 -->
+      <line x1="580"  y1="220" x2="580"  y2="430" stroke="#fff" stroke-width="1.5"/>
+      <rect x="568"   y="250"  width="24" height="120" fill="none" stroke="#fff" stroke-width="1.5" rx="1"/>
+      <line x1="630"  y1="200" x2="630"  y2="410" stroke="#fff" stroke-width="1.5"/>
+      <rect x="618"   y="230"  width="24" height="130" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
+      <line x1="680"  y1="185" x2="680"  y2="390" stroke="#fff" stroke-width="1.5"/>
+      <rect x="668"   y="215"  width="24" height="120" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
+      <!-- Col 5 -->
+      <line x1="760"  y1="155" x2="760"  y2="360" stroke="#fff" stroke-width="1.5"/>
+      <rect x="748"   y="185"  width="24" height="125" fill="none" stroke="#fff" stroke-width="1.5" rx="1"/>
+      <line x1="810"  y1="135" x2="810"  y2="340" stroke="#fff" stroke-width="1.5"/>
+      <rect x="798"   y="165"  width="24" height="120" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
+      <line x1="860"  y1="120" x2="860"  y2="320" stroke="#fff" stroke-width="1.5"/>
+      <rect x="848"   y="150"  width="24" height="115" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
+      <!-- Col 6 -->
+      <line x1="940"  y1="90"  x2="940"  y2="290" stroke="#fff" stroke-width="1.5"/>
+      <rect x="928"   y="120"  width="24" height="120" fill="none" stroke="#fff" stroke-width="1.5" rx="1"/>
+      <line x1="990"  y1="75"  x2="990"  y2="270" stroke="#fff" stroke-width="1.5"/>
+      <rect x="978"   y="105"  width="24" height="115" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
+      <line x1="1040" y1="60"  x2="1040" y2="255" stroke="#fff" stroke-width="1.5"/>
+      <rect x="1028"  y="90"   width="24" height="120" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
+      <!-- Col 7 — top right, highest -->
+      <line x1="1120" y1="40"  x2="1120" y2="230" stroke="#fff" stroke-width="1.5"/>
+      <rect x="1108"  y="68"   width="24" height="110" fill="none" stroke="#fff" stroke-width="1.5" rx="1"/>
+      <line x1="1170" y1="25"  x2="1170" y2="215" stroke="#fff" stroke-width="1.5"/>
+      <rect x="1158"  y="52"   width="24" height="115" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
+      <line x1="1220" y1="15"  x2="1220" y2="200" stroke="#fff" stroke-width="1.5"/>
+      <rect x="1208"  y="42"   width="24" height="110" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
+      <line x1="1270" y1="10"  x2="1270" y2="195" stroke="#fff" stroke-width="1.5"/>
+      <rect x="1258"  y="38"   width="24" height="105" fill="none" stroke="#fff" stroke-width="1.5" rx="1"/>
+      <line x1="1350" y1="8"   x2="1350" y2="188" stroke="#fff" stroke-width="1.5"/>
+      <rect x="1338"  y="35"   width="24" height="108" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
+      <!-- Gold trend line — clear diagonal bottom-left to top-right -->
+      <polyline
+        points="42,565 92,550 142,525 220,480 270,455 320,448 400,395 450,370 500,355 580,310 630,295 680,275 760,248 810,225 860,208 940,180 990,163 1040,150 1120,122 1170,110 1220,97 1270,90 1350,80"
+        stroke="rgba(201,168,76,0.7)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Subtle area fill under trend line -->
+      <polyline
+        points="42,565 92,550 142,525 220,480 270,455 320,448 400,395 450,370 500,355 580,310 630,295 680,275 760,248 810,225 860,208 940,180 990,163 1040,150 1120,122 1170,110 1220,97 1270,90 1350,80 1350,700 42,700"
+        fill="rgba(201,168,76,0.04)" stroke="none"/>
+    </svg>
+  </div>
+
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-tag">
+          <div class="hero-tag-dot"></div>
+          Live — 1,000+ active investors
+        </div>
+        <h1 class="hero-h1">Your pension averages 5% a year. <em>This averages that a month.</em></h1>
+        <p class="hero-sub">A fully automated AI trading algorithm that compounds your portfolio inside your own regulated brokerage account. No charts. No screen time. No guesswork.</p>
+        <div class="hero-actions">
+          <a href="https://app.iclosed.io/e/acealgo/ace-algo-advisory-call" class="btn-primary">Check Your Eligibility →</a>
+          <a href="https://acealgo.ai/v1-lp-ai" class="btn-ghost">See How It Works</a>
+        </div>
+        <div class="hero-proof">
+          <div class="hero-avatars">
+            <img src="https://i.ibb.co/39vjfTvN/IMG-1791.jpg" alt="Member">
+            <img src="https://i.ibb.co/hxLtn4j5/IMG-1789.jpg" alt="Member">
+            <img src="https://i.ibb.co/bMwZJY0n/IMG-1787.jpg" alt="Member">
+            <img src="https://i.ibb.co/wFhd9CVH/IMG-1788.jpg" alt="Member">
+          </div>
+          <p class="hero-proof-text"><strong>1,000+ investors</strong> compounding their portfolios right now</p>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-card-label">Live Performance — A1 Stable Profile</div>
+          <div class="perf-rows">
+            <div class="perf-row"><span class="perf-row-label">January</span><div class="perf-bar-wrap"><div class="perf-bar" style="width:86%"></div></div><span class="perf-val">+12%</span></div>
+            <div class="perf-row"><span class="perf-row-label">February</span><div class="perf-bar-wrap"><div class="perf-bar" style="width:100%"></div></div><span class="perf-val">+14%</span></div>
+            <div class="perf-row"><span class="perf-row-label">March</span><div class="perf-bar-wrap"><div class="perf-bar" style="width:43%"></div></div><span class="perf-val">+6%</span></div>
+            <div class="perf-row"><span class="perf-row-label">April</span><div class="perf-bar-wrap"><div class="perf-bar" style="width:50%"></div></div><span class="perf-val">+7%</span></div>
+            <div class="perf-row"><span class="perf-row-label">May</span><div class="perf-bar-wrap"><div class="perf-bar" style="width:43%"></div></div><span class="perf-val">+6%</span></div>
+          </div>
+          <div class="hero-card-divider"></div>
+          <div class="hero-card-stats">
+            <div class="hcs-item"><span class="hcs-num">4+ Yrs</span><span class="hcs-desc">Tracked data</span></div>
+            <div class="hcs-item"><span class="hcs-num">£10M+</span><span class="hcs-desc">Deployed</span></div>
+            <div class="hcs-item"><span class="hcs-num">90 Day</span><span class="hcs-desc">User Trial</span></div>
+            <div class="hcs-item"><span class="hcs-num">ASIC</span><span class="hcs-desc">Regulated</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div id="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <div class="ticker-item"><div class="ticker-dot"></div>4+ Years Tracked Performance</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>1,000+ Active Investors</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>5–17% Monthly Returns</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>£10M+ Assets Deployed</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>90 Day User Trial</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>ASIC Regulated Broker</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>Zero Lockup Periods</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>Your Money, Your Account</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>4+ Years Tracked Performance</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>1,000+ Active Investors</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>5–17% Monthly Returns</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>£10M+ Assets Deployed</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>90 Day User Trial</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>ASIC Regulated Broker</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>Zero Lockup Periods</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>Your Money, Your Account</div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <span class="eyebrow" style="color:var(--blue)">The problem</span>
+    <h2>You've done everything right.<br>And it's still not enough.</h2>
+    <p class="sec-sub">Most investors are sitting on capital that isn't working nearly hard enough. Here's the honest picture.</p>
+    <div class="compare-grid">
+      <div class="compare-col bad">
+        <div class="compare-col-header">❌ &nbsp;What you were told</div>
+        <ul class="compare-items">
+          <li class="compare-item"><span>—</span><span>Put money in an index fund and wait</span></li>
+          <li class="compare-item"><span>—</span><span>Your pension will take care of retirement</span></li>
+          <li class="compare-item"><span>—</span><span>Time in the market beats timing the market</span></li>
+          <li class="compare-item"><span>—</span><span>Savings accounts are safe and reliable</span></li>
+          <li class="compare-item"><span>—</span><span>Learn how to manual trade</span></li>
+        </ul>
+      </div>
+      <div class="compare-col good">
+        <div class="compare-col-header">✓ &nbsp;The reality</div>
+        <ul class="compare-items">
+          <li class="compare-item"><span>→</span><span>Index funds average 8–10% per <em>year</em>. This algo averages that per <em>month</em>.</span></li>
+          <li class="compare-item"><span>→</span><span>Your pension is locked until you're 67. Inflation is chasing it the whole time.</span></li>
+          <li class="compare-item"><span>→</span><span>Time in the market only works if the market cooperates.</span></li>
+          <li class="compare-item"><span>→</span><span>Savings accounts are losing to inflation every single month.</span></li>
+          <li class="compare-item"><span>→</span><span>That's exactly why we built a machine to do it instead.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-rule">
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <span class="eyebrow">How it works</span>
+    <h2 style="font-family:var(--font-display);font-size:clamp(28px,3.5vw,48px);font-weight:900;color:#fff;letter-spacing:-.02em;margin-bottom:14px;position:relative;z-index:1">Three steps. Fully automated.</h2>
+    <p class="sec-sub">No trading experience needed. No charts, no decisions, no screen time. The algorithm handles everything.</p>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-icon">🏦</div>
+        <span class="how-step-num">01</span>
+        <h3>Open Your Account</h3>
+        <p>You open a regulated brokerage account in your own name at Vantage Markets. Your capital sits there under your full control — accessible whenever you want it. We never hold or touch your money.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-icon">⚡</div>
+        <span class="how-step-num">02</span>
+        <h3>The AI Goes to Work</h3>
+        <p>Ace Algo connects to your account and executes trades across multi-trillion dollar liquid markets — combining technical analysis with real-world fundamentals simultaneously, at a speed no human trader could match.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-icon">📈</div>
+        <span class="how-step-num">03</span>
+        <h3>Watch It Compound</h3>
+        <p>Profits accumulate directly in your brokerage account. Withdraw to your bank or crypto whenever you choose. No lockups. No permission needed. Your money, your terms, your timeline.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-rule">
+
+<!-- STATS -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item"><span class="stat-num">4+ Yrs</span><div class="stat-rule"></div><span class="stat-label">Tracked Performance</span></div>
+      <div class="stat-item"><span class="stat-num">1,000+</span><div class="stat-rule"></div><span class="stat-label">Active Investors</span></div>
+      <div class="stat-item"><span class="stat-num">£10M+</span><div class="stat-rule"></div><span class="stat-label">Assets Deployed</span></div>
+      <div class="stat-item"><span class="stat-num">90 Day</span><div class="stat-rule"></div><span class="stat-label">User Trial</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-rule">
+
+<!-- PERFORMANCE -->
+<section id="performance">
+  <div class="container">
+    <span class="eyebrow" style="color:var(--blue);text-align:center;display:block">Transparent performance</span>
+    <h2>Proven Results. Transparent Performance.</h2>
+    <div class="gold-divider"></div>
+    <p class="sec-sub">We don't hide behind curated screenshots. Here is the full tracked data since 2021 — including the bad months.</p>
+
+    <div class="perf-toggle">
+      <button class="perf-tab active" onclick="switchPerf('a1',this)">A1 — Stable Performance</button>
+      <button class="perf-tab" onclick="switchPerf('a3',this)">A3 — High Performance</button>
+    </div>
+
+    <div id="perf-a1" class="perf-panel active">
+      <div class="profile-card">
+        <div class="profile-head">
+          <span class="profile-tag">A1 — Stable Performance</span>
+          <span class="profile-label">Conservative stability</span>
+          <div class="profile-ret">5–8%<span>/ mo</span></div>
+        </div>
+        <div class="months-grid">
+          <div class="month"><div class="mn">JAN</div><div class="mv pos">+12%</div></div>
+          <div class="month"><div class="mn">FEB</div><div class="mv pos">+14%</div></div>
+          <div class="month"><div class="mn">MAR</div><div class="mv pos">+6%</div></div>
+          <div class="month"><div class="mn">APR</div><div class="mv pos">+7%</div></div>
+          <div class="month"><div class="mn">MAY</div><div class="mv pos">+6%</div></div>
+        </div>
+        <div class="profile-foot"><button class="btn-breakdown" onclick="openPdf('a1')">View Full Performance Breakdown →</button></div>
+      </div>
+    </div>
+
+    <div id="perf-a3" class="perf-panel">
+      <div class="profile-card">
+        <div class="profile-head">
+          <span class="profile-tag">A3 — High Performance</span>
+          <span class="profile-label">Maximum upside</span>
+          <div class="profile-ret">12–17%<span>/ mo</span></div>
+        </div>
+        <div class="months-grid">
+          <div class="month"><div class="mn">JAN</div><div class="mv pos">+34%</div></div>
+          <div class="month"><div class="mn">FEB</div><div class="mv pos">+38%</div></div>
+          <div class="month"><div class="mn">MAR</div><div class="mv pos">+14%</div></div>
+          <div class="month"><div class="mn">APR</div><div class="mv pos">+15%</div></div>
+          <div class="month"><div class="mn">MAY</div><div class="mv pos">+13%</div></div>
+        </div>
+        <div class="profile-foot"><button class="btn-breakdown" onclick="openPdf('a3')">View Full Performance Breakdown →</button></div>
+      </div>
+    </div>
+
+    <p class="perf-disclaimer">Past performance based on tracked data since 2021. Performance varies by risk profile and market conditions. This does not constitute financial advice. Capital at risk.</p>
+  </div>
+</section>
+
+<hr class="gold-rule">
+
+<!-- WHY ACE ALGO -->
+<section id="why">
+  <div class="container">
+    <span class="eyebrow">Why Ace Algo</span>
+    <h2>Built differently. For a reason.</h2>
+    <p class="sec-sub">Most trading systems do one thing. Ace Algo does what they can't — simultaneously, at a speed no human could match.</p>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-card-icon">🧠</div><h3>Dual-Engine Analysis</h3><p>Most systems look at charts or news. Ace Algo does both simultaneously — combining technical analysis with real-world fundamentals at machine speed, before any human trader sees them coming.</p></div>
+      <div class="why-card"><div class="why-card-icon">🔒</div><h3>You Keep Full Control</h3><p>Your capital sits in your own regulated brokerage account. We never hold, touch or access your money. Every trade is visible in real time. Withdraw to your bank or crypto whenever you want.</p></div>
+      <div class="why-card"><div class="why-card-icon">🛡️</div><h3>Protection First</h3><p>The algorithm doesn't chase moonshots. It cuts losing trades fast, rides winners with discipline, and never lets emotion interfere. Capital preservation is the foundation everything else is built on.</p></div>
+      <div class="why-card"><div class="why-card-icon">⚙️</div><h3>Risk Profile Settings</h3><p>Whether you want long-term stability, higher upside, or a blend — you choose the approach that fits your appetite. The algorithm handles the rest entirely.</p></div>
+      <div class="why-card"><div class="why-card-icon">💧</div><h3>Institutional-Grade Markets</h3><p>Ace Algo operates exclusively in highly liquid, multi-trillion dollar asset classes. The same markets institutions have traded for decades — they don't disappear overnight.</p></div>
+      <div class="why-card"><div class="why-card-icon">📊</div><h3>Zero Experience Needed</h3><p>Most members came in with no trading background. Some had tried and failed before. None of that matters — you're here to let a machine do it for you.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-rule">
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <p style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);text-align:center;margin-bottom:16px;position:relative;z-index:1">Real investors. Real results.</p>
+    <h2>What Our Members Say</h2>
+    <div class="gold-divider" style="position:relative;z-index:1"></div>
+
+    <div class="tgrid" id="tgrid">
+      <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Sarah Jenkins</span><span class="tcard-sep">·</span><span class="tcard-loc">London, UK</span></div></div><div class="tcard-result">+15%<span class="tcard-result-label">in 1 month</span></div><img src="https://i.ibb.co/GQGnVN9Q/T1.png" alt="Sarah Jenkins result" class="tcard-img" loading="lazy"></div>
+      <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Carlton Grimm</span><span class="tcard-sep">·</span><span class="tcard-loc">Miami, US</span></div></div><div class="tcard-result">+41%<span class="tcard-result-label">in 3 months</span></div><img src="https://i.ibb.co/C5SRYwmw/imageye-imgi-72-k0-Hk-MKtytll1p-Bdo-I0-Yt-U3-FUc.webp" alt="Carlton Grimm result" class="tcard-img" loading="lazy"></div>
+      <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Ben Davies</span><span class="tcard-sep">·</span><span class="tcard-loc">Cardiff, UK</span></div></div><div class="tcard-result">+59%<span class="tcard-result-label">in 4 months</span></div><img src="https://i.ibb.co/7xZJ2zb0/T2.png" alt="Ben Davies result" class="tcard-img" loading="lazy"></div>
+      <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Lewis McCaulay</span><span class="tcard-sep">·</span><span class="tcard-loc">Perth, AUS</span></div></div><div class="tcard-result">+45%<span class="tcard-result-label">in 3 months</span></div><img src="https://i.ibb.co/cKLWnD3C/imageye-imgi-12-TKe-S26-Uq-M1c-UI6o0-QXJIGXLYUH0.webp" alt="Lewis McCaulay result" class="tcard-img" loading="lazy"></div>
+      <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Liam Patel</span><span class="tcard-sep">·</span><span class="tcard-loc">London, UK</span></div></div><div class="tcard-result">£1k<span class="tcard-result-label">in 5 days</span></div><img src="https://i.ibb.co/pBBSbX31/T3.png" alt="Liam Patel result" class="tcard-img" loading="lazy"></div>
+      <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Sam Morley</span><span class="tcard-sep">·</span><span class="tcard-loc">Manchester, UK</span></div></div><div class="tcard-result">+69%<span class="tcard-result-label">in 5 months</span></div><img src="https://i.ibb.co/Hp3P6ZwZ/imageye-imgi-80-l93-GPm-HUp-Sp-Vy-OKuc-POb-BZLFA6s.webp" alt="Sam Morley result" class="tcard-img" loading="lazy"></div>
+    </div>
+
+    <div class="tcarousel" id="tcarousel">
+      <div class="tcarousel-track" id="ttrack">
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Sarah Jenkins</span><span class="tcard-sep">·</span><span class="tcard-loc">London, UK</span></div></div><div class="tcard-result">+15%<span class="tcard-result-label">in 1 month</span></div><img src="https://i.ibb.co/GQGnVN9Q/T1.png" alt="Result" class="tcard-img" loading="lazy"></div>
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Carlton Grimm</span><span class="tcard-sep">·</span><span class="tcard-loc">Miami, US</span></div></div><div class="tcard-result">+41%<span class="tcard-result-label">in 3 months</span></div><img src="https://i.ibb.co/C5SRYwmw/imageye-imgi-72-k0-Hk-MKtytll1p-Bdo-I0-Yt-U3-FUc.webp" alt="Result" class="tcard-img" loading="lazy"></div>
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Ben Davies</span><span class="tcard-sep">·</span><span class="tcard-loc">Cardiff, UK</span></div></div><div class="tcard-result">+59%<span class="tcard-result-label">in 4 months</span></div><img src="https://i.ibb.co/7xZJ2zb0/T2.png" alt="Result" class="tcard-img" loading="lazy"></div>
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Lewis McCaulay</span><span class="tcard-sep">·</span><span class="tcard-loc">Perth, AUS</span></div></div><div class="tcard-result">+45%<span class="tcard-result-label">in 3 months</span></div><img src="https://i.ibb.co/cKLWnD3C/imageye-imgi-12-TKe-S26-Uq-M1c-UI6o0-QXJIGXLYUH0.webp" alt="Result" class="tcard-img" loading="lazy"></div>
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Liam Patel</span><span class="tcard-sep">·</span><span class="tcard-loc">London, UK</span></div></div><div class="tcard-result">£1k<span class="tcard-result-label">in 5 days</span></div><img src="https://i.ibb.co/pBBSbX31/T3.png" alt="Result" class="tcard-img" loading="lazy"></div>
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Sam Morley</span><span class="tcard-sep">·</span><span class="tcard-loc">Manchester, UK</span></div></div><div class="tcard-result">+69%<span class="tcard-result-label">in 5 months</span></div><img src="https://i.ibb.co/Hp3P6ZwZ/imageye-imgi-80-l93-GPm-HUp-Sp-Vy-OKuc-POb-BZLFA6s.webp" alt="Result" class="tcard-img" loading="lazy"></div>
+      </div>
+      <div class="tcarousel-dots" id="tdots"></div>
+    </div>
+
+    <p style="font-size:12px;color:#888;text-align:center;margin-top:36px;line-height:1.7;max-width:640px;margin-left:auto;margin-right:auto;position:relative;z-index:1">Past performance based on live tracked data since 2021. Results vary by risk profile and market conditions. This does not constitute financial advice. Capital at risk.</p>
+
+    <!-- Trustpilot strip — integrated -->
+    <div style="position:relative;z-index:1;margin-top:52px;padding-top:40px;border-top:1px solid rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;text-align:left">
+      <div style="display:flex;align-items:center;gap:20px">
+        <img src="https://i.ibb.co/Fk8QmxBQ/447-4474733-category-sponsor-logo-trustpilot-hd-png-download.jpg" alt="Trustpilot" style="height:28px;width:auto;display:block" loading="lazy">
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+            <span style="display:flex;gap:3px">
+              <span style="width:20px;height:20px;background:#00B67A;display:flex;align-items:center;justify-content:center;border-radius:2px"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+              <span style="width:20px;height:20px;background:#00B67A;display:flex;align-items:center;justify-content:center;border-radius:2px"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+              <span style="width:20px;height:20px;background:#00B67A;display:flex;align-items:center;justify-content:center;border-radius:2px"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+              <span style="width:20px;height:20px;background:#00B67A;display:flex;align-items:center;justify-content:center;border-radius:2px"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+              <span style="width:20px;height:20px;background:#00B67A;display:flex;align-items:center;justify-content:center;border-radius:2px"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+            </span>
+            <span style="font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;color:var(--black)">Excellent</span>
+          </div>
+          <div style="font-size:13px;color:#555">Rated by our members on Trustpilot</div>
+        </div>
+      </div>
+      <a href="https://www.trustpilot.com/review/acealgo.ai" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;background:var(--black);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;padding:12px 22px;border-radius:6px;text-decoration:none;border:1px solid rgba(255,255,255,.15);transition:border-color .2s,background .2s;letter-spacing:.02em" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='rgba(255,255,255,.15)';this.style.color='#fff'">
+        Read our reviews →
+      </a>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-rule">
+
+<!-- BROKER — white bg -->
+<section id="broker">
+  <div class="container">
+    <span class="eyebrow" style="color:var(--gold)">Your capital is safe</span>
+    <h2>Your Capital. Your Account. Your Control.</h2>
+    <p class="sec-sub">The most common question we get: "What happens to my money?" Here's the exact answer.</p>
+
+    <div class="broker-points-grid">
+      <div class="broker-point"><div class="broker-point-icon">🔒</div><div class="broker-point-body"><h4>We Never Touch Your Money</h4><p>Your funds are held in your own account at Vantage Markets — we never hold, touch, or have access to your capital at any point.</p></div></div>
+      <div class="broker-point"><div class="broker-point-icon">💳</div><div class="broker-point-body"><h4>Withdraw When You Choose</h4><p>Deposit when ready. Withdraw your profits to your bank or crypto — no lockups, no permission required, no waiting.</p></div></div>
+      <div class="broker-point"><div class="broker-point-icon">📊</div><div class="broker-point-body"><h4>Complete Transparency</h4><p>See every trade, every position, every result in real time. No black boxes. No guesswork about where your money is.</p></div></div>
+      <div class="broker-point"><div class="broker-point-icon">🏎️</div><div class="broker-point-body"><h4>Official Ferrari F1 Partner</h4><p>Vantage Markets is the official partner of Scuderia Ferrari HP Formula 1 team. 15+ years in financial markets.</p></div></div>
+    </div>
+
+    <div class="broker-carousel" id="broker-carousel">
+      <div class="broker-carousel-track" id="broker-track">
+        <div class="broker-point"><div class="broker-point-icon">🔒</div><div class="broker-point-body"><h4>We Never Touch Your Money</h4><p>Your funds are held in your own account at Vantage Markets — we never hold, touch, or have access to your capital at any point.</p></div></div>
+        <div class="broker-point"><div class="broker-point-icon">💳</div><div class="broker-point-body"><h4>Withdraw When You Choose</h4><p>Deposit when ready. Withdraw to your bank or crypto — no lockups, no permission, no waiting.</p></div></div>
+        <div class="broker-point"><div class="broker-point-icon">📊</div><div class="broker-point-body"><h4>Complete Transparency</h4><p>See every trade, every position, every result in real time. No black boxes.</p></div></div>
+        <div class="broker-point"><div class="broker-point-icon">🏎️</div><div class="broker-point-body"><h4>Official Ferrari F1 Partner</h4><p>Official partner of Scuderia Ferrari HP Formula 1 team. 15+ years in financial markets.</p></div></div>
+      </div>
+      <div class="broker-dots" id="broker-dots"></div>
+    </div>
+
+    <div class="vantage-card">
+      <div class="vantage-logo-wrap">
+        <img src="https://i.ibb.co/JWxcJDjj/images.png" alt="Vantage Markets" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span style="display:none;font-family:var(--font-display);font-weight:900;font-size:22px;color:#fff">Vantage Markets</span>
+        <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:6px">Founded 2009 · 15+ years</div>
+      </div>
+      <div class="vantage-creds">
+        <div class="cred"><span class="cred-check">✓</span><span>ASIC regulated — one of the world's most respected financial regulators</span></div>
+        <div class="cred"><span class="cred-check">✓</span><span>$50 million client fund insurance underwritten by Lloyd's of London</span></div>
+        <div class="cred"><span class="cred-check">✓</span><span>Client funds held in segregated accounts — never mixed with company capital</span></div>
+        <div class="cred"><span class="cred-check">✓</span><span>Official partner of Scuderia Ferrari HP Formula 1 team</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-rule">
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <p style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);text-align:center;margin-bottom:16px">Got questions?</p>
+    <h2>Frequently Asked Questions</h2>
+    <div class="gold-divider"></div>
+    <p class="sec-sub">Everything you need to know before applying.</p>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-btn" aria-expanded="false"><span class="faq-q">How much capital do I need to get started?</span><span class="faq-icon">+</span></button><div class="faq-body"><p class="faq-a">The system works best with accounts above £5,000–£10,000, though it can operate on smaller and much larger balances. Larger accounts benefit from better risk-adjusted performance and smoother compounding.</p></div></div>
+      <div class="faq-item"><button class="faq-btn" aria-expanded="false"><span class="faq-q">Is my money safe? Who holds it?</span><span class="faq-icon">+</span></button><div class="faq-body"><p class="faq-a">Your money is held in your own account at Vantage Markets — a broker regulated by ASIC with $50M client fund insurance underwritten by Lloyd's of London. We never touch, hold, or have access to your capital. You see every trade in real time and can withdraw whenever you choose.</p></div></div>
+      <div class="faq-item"><button class="faq-btn" aria-expanded="false"><span class="faq-q">Can I withdraw my money at any time?</span><span class="faq-icon">+</span></button><div class="faq-body"><p class="faq-a">Yes — completely. There are no lockup periods, no waiting times, and no permission required. Your money is in your account and you can withdraw to your bank or crypto wallet whenever you want. This is your money, on your terms.</p></div></div>
+      <div class="faq-item"><button class="faq-btn" aria-expanded="false"><span class="faq-q">How does the algorithm actually generate its trades?</span><span class="faq-icon">+</span></button><div class="faq-body"><p class="faq-a">Our models use a blend of machine learning, statistical arbitrage, and real-time market data. They evaluate probability, volatility, momentum, and order-flow conditions to identify trades with the highest expected value. Everything is fully systematic — no emotion, no discretion.</p></div></div>
+      <div class="faq-item"><button class="faq-btn" aria-expanded="false"><span class="faq-q">How does the system manage risk?</span><span class="faq-icon">+</span></button><div class="faq-body"><p class="faq-a">Risk is built into every layer of the model. Position size is volatility-scaled, stop-losses are adaptive, and maximum drawdown controls are enforced at the portfolio level. The system is engineered to prioritize capital preservation and long-term stability.</p></div></div>
+      <div class="faq-item"><button class="faq-btn" aria-expanded="false"><span class="faq-q">How does it adapt when the market changes?</span><span class="faq-icon">+</span></button><div class="faq-body"><p class="faq-a">The model incorporates regime detection and continuous data ingestion. As volatility, trend structure, or liquidity shifts, position sizing, entry logic, and risk parameters automatically adjust. This keeps the system robust across bull markets, bear cycles, and sideways periods.</p></div></div>
+      <div class="faq-item"><button class="faq-btn" aria-expanded="false"><span class="faq-q">Do I need any trading experience?</span><span class="faq-icon">+</span></button><div class="faq-body"><p class="faq-a">None whatsoever. Most of our members came in with little to no trading experience. Some had tried before and failed. None of that matters — you're not here to trade, you're here to let a machine do it for you. Your job is simply to let it run.</p></div></div>
+      <div class="faq-item"><button class="faq-btn" aria-expanded="false"><span class="faq-q">How does the 90-day user trial work?</span><span class="faq-icon">+</span></button><div class="faq-body"><p class="faq-a">Simple. If within 90 days you're not happy with your results — or you're simply not comfortable — you get every penny back. No hoops, no awkward conversations, no small print. We offer this because we know what this system delivers, and we'd rather prove it than ask you to trust us.</p></div></div>
+      <div class="faq-item"><button class="faq-btn" aria-expanded="false"><span class="faq-q">What happens after I submit my application?</span><span class="faq-icon">+</span></button><div class="faq-body"><p class="faq-a">Once you apply, our team will review your application and reach out to schedule a call. Before the call you'll receive a brief preparation guide — just take a minute to look it over. We handle everything else from there.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-rule">
+
+<!-- CTA FINAL -->
+<section id="cta-final">
+  <div class="container">
+    <div class="cta-final-inner">
+      <p style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:18px">One decision. Real results.</p>
+      <h2 style="font-size:clamp(24px,2.8vw,42px);max-width:720px;margin-left:auto;margin-right:auto">Your money should be working harder<br>than you do.</h2>
+      <p>Join 1,000+ investors using AI to compound their portfolios automatically — while they sleep, work, and live their lives.</p>
+      <div class="cta-final-actions">
+        <a href="https://app.iclosed.io/e/acealgo/ace-algo-advisory-call" class="btn-primary">Check Your Eligibility →</a>
+      </div>
+      <p class="cta-trial" style="margin-top:40px">🛡️ 90-day user trial · No obligation</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="https://i.ibb.co/fzv8dPxb/Blue-white.png" alt="Ace Algo" width="100" loading="lazy">
+        <p>A fully automated AI trading algorithm for investors who want their capital working harder — without the charts, the stress, or the screen time.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="#how">How It Works</a></li>
+          <li><a href="#performance">Performance</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="https://app.iclosed.io/e/acealgo/ace-algo-advisory-call">Apply Now</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Risk Disclaimer</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Ace Algo Ltd. All rights reserved. United Kingdom.</p>
+      <p class="footer-disc">Risk Warning: Trading CFDs and forex carries a high level of risk and may not be suitable for all investors. Past performance is not indicative of future results. The value of your investments can go down as well as up. You could lose some or all of your invested capital. This website does not constitute financial advice. Ace Algo is not a regulated financial advisor.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  // PDF modal
+  var pdfUrls={a1:'https://drive.google.com/file/d/1cBY4twdT2nB8n5okoiY8r70CWCv6vxN3/preview',a3:'https://drive.google.com/file/d/1ZgJReUb_-REow5FHT2Wk3e7g_1VnE069/preview'};
+  window.openPdf=function(p){var u=pdfUrls[p];if(!u)return;document.getElementById('pdf-iframe').src=u;document.getElementById('pdf-modal').classList.add('open');document.body.style.overflow='hidden'};
+  window.closePdf=function(){document.getElementById('pdf-modal').classList.remove('open');document.getElementById('pdf-iframe').src='';document.body.style.overflow=''};
+  document.getElementById('pdf-modal').addEventListener('click',function(e){if(e.target===this)closePdf()});
+
+  // Performance toggle
+  window.switchPerf=function(id,btn){
+    document.querySelectorAll('.perf-panel').forEach(function(p){p.classList.remove('active')});
+    document.querySelectorAll('.perf-tab').forEach(function(t){t.classList.remove('active')});
+    document.getElementById('perf-'+id).classList.add('active');
+    btn.classList.add('active');
+  };
+
+  document.addEventListener('DOMContentLoaded',function(){
+
+    // Nav toggle
+    var toggle=document.getElementById('nav-toggle');
+    var links=document.getElementById('nav-links');
+    if(toggle){
+      toggle.addEventListener('click',function(){links.classList.toggle('open')});
+      links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open')})});
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(function(a){
+      a.addEventListener('click',function(e){
+        var t=document.querySelector(this.getAttribute('href'));
+        if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+      });
+    });
+
+    // Nav scroll bg
+    var nav=document.getElementById('nav');
+    window.addEventListener('scroll',function(){nav.style.background=window.scrollY>50?'rgba(0,0,0,0.97)':'rgba(0,0,0,0.88)';},{passive:true});
+
+    // Testimonial carousel
+    var track=document.getElementById('ttrack');
+    var dotsContainer=document.getElementById('tdots');
+    if(track){
+      var cards=track.querySelectorAll('.tcard');
+      var total=cards.length;var cur=0;
+      for(var i=0;i<total;i++){var d=document.createElement('button');d.setAttribute('aria-label','Slide '+(i+1));if(i===0)d.classList.add('active');(function(idx){d.addEventListener('click',function(){goT(idx)})})(i);dotsContainer.appendChild(d)}
+      function goT(idx){cur=idx;var w=track.querySelector('.tcard').offsetWidth+8;track.style.transform='translateX(-'+(cur*w)+'px)';dotsContainer.querySelectorAll('button').forEach(function(d,i){d.classList.toggle('active',i===cur)})}
+      var sx=0;
+      track.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
+      track.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)goT(dx<0?(cur+1)%total:(cur-1+total)%total)},{passive:true});
+    }
+
+    // Broker carousel (mobile)
+    var bt=document.getElementById('broker-track');
+    var bd=document.getElementById('broker-dots');
+    if(bt&&bd){
+      var bCards=bt.querySelectorAll('.broker-point');
+      var bTotal=bCards.length;var bCur=0;
+      for(var j=0;j<bTotal;j++){var bd2=document.createElement('button');bd2.setAttribute('aria-label','Slide '+(j+1));if(j===0)bd2.classList.add('active');(function(idx){bd2.addEventListener('click',function(){goB(idx)})})(j);bd.appendChild(bd2)}
+      function goB(idx){bCur=idx;var w=bt.querySelector('.broker-point').offsetWidth+10;bt.style.transform='translateX(-'+(bCur*w)+'px)';bd.querySelectorAll('button').forEach(function(d,i){d.classList.toggle('active',i===bCur)})}
+      var bsx=0;
+      bt.addEventListener('touchstart',function(e){bsx=e.touches[0].clientX},{passive:true});
+      bt.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-bsx;if(Math.abs(dx)>40)goB(dx<0?(bCur+1)%bTotal:(bCur-1+bTotal)%bTotal)},{passive:true});
+    }
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-btn').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        var item=this.closest('.faq-item');
+        var isOpen=item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');i.querySelector('.faq-btn').setAttribute('aria-expanded','false')});
+        if(!isOpen){item.classList.add('open');this.setAttribute('aria-expanded','true')}
+      });
+    });
+
+  });
+})();
+</script>
+</body>
+</html>
