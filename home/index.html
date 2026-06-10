@@ -48,6 +48,15 @@ a{color:inherit;text-decoration:none}
 .gold-divider.left{margin-left:0}
 
 
+
+/* Carousel arrow buttons — mobile */
+.carousel-arrows{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:16px}
+.carousel-arrow{width:40px;height:40px;border-radius:50%;border:1px solid rgba(201,168,76,.5);background:transparent;color:var(--gold);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s;flex-shrink:0}
+.carousel-arrow:hover{background:var(--gold);color:#000}
+.broker-carousel-arrows{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:16px}
+.broker-arrow{width:40px;height:40px;border-radius:50%;border:1px solid rgba(201,168,76,.5);background:transparent;color:var(--gold);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s;flex-shrink:0}
+.broker-arrow:hover{background:var(--gold);color:#000}
+
 /* Candlestick background graphic */
 .hero-candles{
   position:absolute;
@@ -139,6 +148,7 @@ a{color:inherit;text-decoration:none}
 /* TICKER */
 #ticker{background:var(--gold);padding:12px 0;overflow:hidden}
 .ticker-track{display:flex;animation:tickerScroll 30s linear infinite;white-space:nowrap}
+@media(max-width:768px){.ticker-track{animation:tickerScroll 12s linear infinite}}
 .ticker-item{display:flex;align-items:center;gap:8px;padding:0 40px;font-family:var(--font-display);font-size:13px;font-weight:700;color:#000;letter-spacing:.04em;text-transform:uppercase}
 .ticker-dot{width:6px;height:6px;border-radius:50%;background:#000;opacity:.4;flex-shrink:0}
 @keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
@@ -516,7 +526,7 @@ a{color:inherit;text-decoration:none}
 <section id="problem">
   <div class="container">
     <span class="eyebrow" style="color:var(--blue)">The problem</span>
-    <h2>You've done everything right.<br>And it's still not enough.</h2>
+    <h2>You've done everything right. And it's still not enough.</h2>
     <p class="sec-sub">Most investors are sitting on capital that isn't working nearly hard enough. Here's the honest picture.</p>
     <div class="compare-grid">
       <div class="compare-col bad">
@@ -690,6 +700,10 @@ a{color:inherit;text-decoration:none}
         <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Sam Morley</span><span class="tcard-sep">·</span><span class="tcard-loc">Manchester, UK</span></div></div><div class="tcard-result">+69%<span class="tcard-result-label">in 5 months</span></div><img src="https://i.ibb.co/Hp3P6ZwZ/imageye-imgi-80-l93-GPm-HUp-Sp-Vy-OKuc-POb-BZLFA6s.webp" alt="Result" class="tcard-img" loading="lazy"></div>
       </div>
       <div class="tcarousel-dots" id="tdots"></div>
+      <div class="carousel-arrows">
+        <button class="carousel-arrow" id="tprev" aria-label="Previous">&#8592;</button>
+        <button class="carousel-arrow" id="tnext" aria-label="Next">&#8594;</button>
+      </div>
     </div>
 
     <p style="font-size:12px;color:#888;text-align:center;margin-top:36px;line-height:1.7;max-width:640px;margin-left:auto;margin-right:auto;position:relative;z-index:1">Past performance based on live tracked data since 2021. Results vary by risk profile and market conditions. This does not constitute financial advice. Capital at risk.</p>
@@ -743,6 +757,10 @@ a{color:inherit;text-decoration:none}
         <div class="broker-point"><div class="broker-point-icon">🏎️</div><div class="broker-point-body"><h4>Official Ferrari F1 Partner</h4><p>Official partner of Scuderia Ferrari HP Formula 1 team. 15+ years in financial markets.</p></div></div>
       </div>
       <div class="broker-dots" id="broker-dots"></div>
+      <div class="broker-carousel-arrows">
+        <button class="broker-arrow" id="bprev" aria-label="Previous">&#8592;</button>
+        <button class="broker-arrow" id="bnext" aria-label="Next">&#8594;</button>
+      </div>
     </div>
 
     <div class="vantage-card">
@@ -902,10 +920,13 @@ a{color:inherit;text-decoration:none}
       var bCards=bt.querySelectorAll('.broker-point');
       var bTotal=bCards.length;var bCur=0;
       for(var j=0;j<bTotal;j++){var bd2=document.createElement('button');bd2.setAttribute('aria-label','Slide '+(j+1));if(j===0)bd2.classList.add('active');(function(idx){bd2.addEventListener('click',function(){goB(idx)})})(j);bd.appendChild(bd2)}
-      function goB(idx){bCur=idx;var w=bt.querySelector('.broker-point').offsetWidth+10;bt.style.transform='translateX(-'+(bCur*w)+'px)';bd.querySelectorAll('button').forEach(function(d,i){d.classList.toggle('active',i===bCur)})}
+      function goB(idx){bCur=(idx+bTotal)%bTotal;var w=bt.querySelector('.broker-point').offsetWidth+10;bt.style.transform='translateX(-'+(bCur*w)+'px)';bd.querySelectorAll('button').forEach(function(d,i){d.classList.toggle('active',i===bCur)})}
+      var bprev=document.getElementById('bprev');var bnext=document.getElementById('bnext');
+      if(bprev)bprev.addEventListener('click',function(){goB(bCur-1)});
+      if(bnext)bnext.addEventListener('click',function(){goB(bCur+1)});
       var bsx=0;
       bt.addEventListener('touchstart',function(e){bsx=e.touches[0].clientX},{passive:true});
-      bt.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-bsx;if(Math.abs(dx)>40)goB(dx<0?(bCur+1)%bTotal:(bCur-1+bTotal)%bTotal)},{passive:true});
+      bt.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-bsx;if(Math.abs(dx)>40)goB(dx<0?bCur+1:bCur-1)},{passive:true});
     }
 
     // FAQ accordion
