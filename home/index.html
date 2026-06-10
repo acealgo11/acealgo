@@ -264,9 +264,18 @@ a{color:inherit;text-decoration:none}
 .broker-carousel{display:none}
 @media(max-width:640px){
   .broker-points-grid{display:none}
-  .broker-carousel{display:block;overflow:hidden;width:calc(100% + 40px);margin-left:-20px;margin-bottom:20px}
-  .broker-carousel-track{display:flex;transition:transform .35s ease;padding-left:20px}
-  .broker-carousel-track .broker-point{min-width:80%;max-width:80%;flex-shrink:0;margin-right:10px}
+  .broker-carousel{display:block;margin-bottom:20px}
+  .broker-carousel-track{
+    display:flex;
+    overflow-x:scroll;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    gap:12px;
+    padding:0 20px;
+  }
+  .broker-carousel-track::-webkit-scrollbar{display:none}
+  .broker-carousel-track .broker-point{min-width:82%;max-width:82%;flex-shrink:0;scroll-snap-align:start;box-sizing:border-box;}
   .broker-dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
   .broker-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(255,255,255,.25);cursor:pointer;padding:0;transition:background .2s}
   .broker-dots button.active{background:var(--gold)}
@@ -281,9 +290,22 @@ a{color:inherit;text-decoration:none}
 @media(max-width:768px){.tgrid{display:none}}
 .tcarousel{display:none}
 @media(max-width:768px){
-  .tcarousel{display:block;position:relative;z-index:1;overflow:hidden;width:calc(100% + 40px);margin-left:-20px}
-  .tcarousel-track{display:flex;transition:transform .35s ease;will-change:transform;padding-left:20px}
-  .tcarousel-track .tcard{min-width:80%;max-width:80%;flex-shrink:0;margin:0 10px 0 0;box-sizing:border-box}
+  .tcarousel{display:block;position:relative;z-index:1}
+  .tcarousel-track{
+    display:flex;
+    overflow-x:scroll;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    gap:12px;
+    padding:0 20px 0 20px;
+  }
+  .tcarousel-track::-webkit-scrollbar{display:none}
+  .tcarousel-track .tcard{
+    min-width:82%;max-width:82%;flex-shrink:0;
+    scroll-snap-align:start;
+    box-sizing:border-box;
+  }
   .tcarousel-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
   .tcarousel-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(0,0,0,.2);cursor:pointer;padding:0;transition:background .2s,transform .2s}
   .tcarousel-dots button.active{background:var(--gold);transform:scale(1.3)}
@@ -707,7 +729,7 @@ a{color:inherit;text-decoration:none}
     <!-- Trustpilot strip — integrated -->
     <div style="position:relative;z-index:1;margin-top:52px;padding-top:40px;border-top:1px solid rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;text-align:left">
       <div style="display:flex;align-items:center;gap:20px">
-        <img src="https://i.ibb.co/LdG6HPFz/images-3.png" alt="Trustpilot" style="height:28px;width:auto;display:block" loading="lazy">
+        <img src="https://i.ibb.co/DfcZTLPD/Trustpilot-Logo-2022-svg-1.png" alt="Trustpilot" style="height:28px;width:auto;display:block" loading="lazy">
         <div>
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
             <span style="display:flex;gap:3px">
@@ -905,23 +927,27 @@ a{color:inherit;text-decoration:none}
       track.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)goT(dx<0?(cur+1)%total:(cur-1+total)%total)},{passive:true});
     }
 
-    // Broker carousel
+    // Broker carousel — native scroll snap
     (function(){
       var bt=document.getElementById('broker-track');
       var bd=document.getElementById('broker-dots');
       if(!bt)return;
       var bCards=Array.prototype.slice.call(bt.querySelectorAll('.broker-point'));
-      var bn=bCards.length, bCur=0;
-      function bW(){return bt.offsetWidth*0.8+10;}
-      function goB(i){
-        bCur=((i%bn)+bn)%bn;
-        bt.style.transform='translateX(-'+(bCur*bW())+'px)';
-        if(bd)bd.querySelectorAll('button').forEach(function(d,j){d.classList.toggle('active',j===bCur)});
+      var bn=bCards.length;
+      if(bd){
+        bCards.forEach(function(_,i){
+          var d=document.createElement('button');
+          if(i===0)d.classList.add('active');
+          d.addEventListener('click',function(){
+            bt.scrollTo({left:bCards[i].offsetLeft-20,behavior:'smooth'});
+          });
+          bd.appendChild(d);
+        });
       }
-      if(bd){bCards.forEach(function(_,i){var d=document.createElement('button');if(i===0)d.classList.add('active');d.addEventListener('click',function(){goB(i)});bd.appendChild(d);});}
-      var bsx=0;
-      bt.addEventListener('touchstart',function(e){bsx=e.touches[0].clientX;},{passive:true});
-      bt.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-bsx;if(Math.abs(dx)>30)goB(bCur+(dx<0?1:-1));},{passive:true});
+      bt.addEventListener('scroll',function(){
+        var idx=Math.round(bt.scrollLeft/(bt.scrollWidth/bn));
+        if(bd)bd.querySelectorAll('button').forEach(function(d,i){d.classList.toggle('active',i===idx)});
+      },{passive:true});
     })();
 
     // Ticker — JS driven so speed is consistent on all devices
