@@ -907,7 +907,7 @@ a{color:inherit;text-decoration:none}
       track.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)goT(dx<0?(cur+1)%total:(cur-1+total)%total)},{passive:true});
     }
 
-    // Broker carousel — same pattern as working lander
+    // Broker carousel
     (function(){
       var bt=document.getElementById('broker-track');
       var bd=document.getElementById('broker-dots');
@@ -915,24 +915,23 @@ a{color:inherit;text-decoration:none}
       var bCards=bt.querySelectorAll('.broker-point');
       var bTotal=bCards.length;
       var bCurrent=0;
+      var bCardW=bCards[0].offsetWidth+10;
       for(var i=0;i<bTotal;i++){
         var d=document.createElement('button');
-        d.setAttribute('aria-label','Go to slide '+(i+1));
         if(i===0)d.classList.add('active');
         (function(idx){d.addEventListener('click',function(){goB(idx);})})(i);
         bd.appendChild(d);
       }
       function goB(idx){
-        bCurrent=idx;
-        var cardW=bt.querySelector('.broker-point').offsetWidth+8;
-        bt.style.transform='translateX(-'+(bCurrent*cardW)+'px)';
+        bCurrent=((idx%bTotal)+bTotal)%bTotal;
+        bt.style.transform='translateX(-'+(bCurrent*bCardW)+'px)';
         bd.querySelectorAll('button').forEach(function(d,i){d.classList.toggle('active',i===bCurrent);});
       }
       var bStartX=0;
       bt.addEventListener('touchstart',function(e){bStartX=e.touches[0].clientX;},{passive:true});
       bt.addEventListener('touchend',function(e){
         var dx=e.changedTouches[0].clientX-bStartX;
-        if(Math.abs(dx)>40)goB(dx<0?(bCurrent+1)%bTotal:(bCurrent-1+bTotal)%bTotal);
+        if(Math.abs(dx)>40)goB(dx<0?bCurrent+1:bCurrent-1);
       },{passive:true});
     })();
 
