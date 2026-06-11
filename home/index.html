@@ -264,9 +264,9 @@ a{color:inherit;text-decoration:none}
 .broker-carousel{display:none}
 @media(max-width:640px){
   .broker-points-grid{display:none}
-  .broker-carousel{display:block;margin-bottom:20px;overflow:hidden}
-  .broker-carousel-track{display:flex;transition:transform .3s ease;padding-left:20px}
-  .broker-carousel-track .broker-point{min-width:82%;max-width:82%;flex-shrink:0;margin-right:12px;box-sizing:border-box}
+  .broker-carousel{display:block;margin-bottom:20px;overflow:hidden;width:calc(100% + 40px);margin-left:-20px}
+  .broker-carousel-track{display:flex;transition:transform .35s ease;will-change:transform;padding-left:20px}
+  .broker-carousel-track .broker-point{min-width:80%;max-width:80%;flex-shrink:0;margin:0 10px 0 0;box-sizing:border-box}
   .broker-dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
   .broker-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(255,255,255,.25);cursor:pointer;padding:0;transition:background .2s}
   .broker-dots button.active{background:var(--gold)}
@@ -281,9 +281,11 @@ a{color:inherit;text-decoration:none}
 @media(max-width:768px){.tgrid{display:none}}
 .tcarousel{display:none}
 @media(max-width:768px){
-  .tcarousel{display:block;position:relative;z-index:1;overflow:hidden}
-  .tcarousel-track{display:flex;transition:transform .3s ease;padding-left:20px}
-  .tcarousel-track .tcard{min-width:82%;max-width:82%;flex-shrink:0;margin-right:12px;box-sizing:border-box}
+  .tgrid{display:none}
+  .tcarousel{display:block;position:relative;z-index:1;overflow:hidden;width:calc(100% + 40px);margin-left:-20px}
+  .tcarousel-track{display:flex;transition:transform .35s ease;will-change:transform;padding-left:20px}
+  .tcarousel-track .tcard{min-width:80%;max-width:80%;flex-shrink:0;margin:0 10px 0 0;box-sizing:border-box}
+  .tcard-img{max-height:none;height:auto;width:100%;object-fit:contain;display:block}
   .tcarousel-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
   .tcarousel-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(0,0,0,.2);cursor:pointer;padding:0;transition:background .2s,transform .2s}
   .tcarousel-dots button.active{background:var(--gold);transform:scale(1.3)}
@@ -905,34 +907,32 @@ a{color:inherit;text-decoration:none}
       track.addEventListener('touchend',function(e){var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)goT(dx<0?(cur+1)%total:(cur-1+total)%total)},{passive:true});
     }
 
-    // Broker carousel
+    // Broker carousel — same pattern as working lander
     (function(){
-      var bcarousel=document.getElementById('broker-carousel');
       var bt=document.getElementById('broker-track');
       var bd=document.getElementById('broker-dots');
-      if(!bt||!bcarousel)return;
-      var bCards=Array.prototype.slice.call(bt.querySelectorAll('.broker-point'));
-      var bn=bCards.length,bCur=0,bStartX=0,bDrag=false;
-      function bStep(){return bcarousel.offsetWidth*0.82+12;}
-      function goB(i){
-        bCur=((i%bn)+bn)%bn;
-        bt.style.transform='translateX(-'+(bCur*bStep())+'px)';
-        if(bd)bd.querySelectorAll('button').forEach(function(d,j){d.classList.toggle('active',j===bCur)});
+      if(!bt)return;
+      var bCards=bt.querySelectorAll('.broker-point');
+      var bTotal=bCards.length;
+      var bCurrent=0;
+      for(var i=0;i<bTotal;i++){
+        var d=document.createElement('button');
+        d.setAttribute('aria-label','Go to slide '+(i+1));
+        if(i===0)d.classList.add('active');
+        (function(idx){d.addEventListener('click',function(){goB(idx);})})(i);
+        bd.appendChild(d);
       }
-      if(bd){
-        bCards.forEach(function(_,i){
-          var d=document.createElement('button');
-          if(i===0)d.classList.add('active');
-          d.addEventListener('click',function(){goB(i)});
-          bd.appendChild(d);
-        });
+      function goB(idx){
+        bCurrent=idx;
+        var cardW=bt.querySelector('.broker-point').offsetWidth+8;
+        bt.style.transform='translateX(-'+(bCurrent*cardW)+'px)';
+        bd.querySelectorAll('button').forEach(function(d,i){d.classList.toggle('active',i===bCurrent);});
       }
-      bt.addEventListener('touchstart',function(e){bStartX=e.touches[0].clientX;bDrag=true;},{passive:true});
+      var bStartX=0;
+      bt.addEventListener('touchstart',function(e){bStartX=e.touches[0].clientX;},{passive:true});
       bt.addEventListener('touchend',function(e){
-        if(!bDrag)return;
-        bDrag=false;
         var dx=e.changedTouches[0].clientX-bStartX;
-        if(Math.abs(dx)>30)goB(dx<0?bCur+1:bCur-1);
+        if(Math.abs(dx)>40)goB(dx<0?(bCurrent+1)%bTotal:(bCurrent-1+bTotal)%bTotal);
       },{passive:true});
     })();
 
