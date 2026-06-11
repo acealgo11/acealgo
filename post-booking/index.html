@@ -468,8 +468,8 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
   box-shadow:0 4px 24px rgba(0,0,0,.22);
   max-width:200px;
   position:relative;
-  animation:waBounce 0.4s cubic-bezier(.34,1.56,.64,1) forwards;
   opacity:0;
+  display:none;
   transform:translateY(8px) scale(.95);
 }
 .wa-tooltip::after{
@@ -536,7 +536,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 
       <div class="urgency-bar">
         <span class="urgency-dot"></span>
-        <span>Your slot is held — <strong>watch this before</strong> your call</span>
+        <span>Your slot is held — please <strong>watch this before</strong> your call</span>
       </div>
 
       <!-- WISTIA EMBED — replace YOUR_VIDEO_ID -->
@@ -881,14 +881,23 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
       },{passive:true});
     }
 
-    // WhatsApp tooltip — hide after 6s, hide on click
+    // WhatsApp tooltip — show after 30s, hide after 36s
     var tooltip = document.getElementById('wa-tooltip');
     if(tooltip){
+      tooltip.style.opacity='0';
+      tooltip.style.display='none';
       setTimeout(function(){
-        tooltip.style.transition='opacity .4s';
-        tooltip.style.opacity='0';
-        setTimeout(function(){tooltip.style.display='none'},400);
-      }, 6000);
+        tooltip.style.display='block';
+        setTimeout(function(){
+          tooltip.style.transition='opacity .4s';
+          tooltip.style.opacity='1';
+        },50);
+        setTimeout(function(){
+          tooltip.style.transition='opacity .4s';
+          tooltip.style.opacity='0';
+          setTimeout(function(){tooltip.style.display='none'},400);
+        }, 6000);
+      }, 30000);
       document.getElementById('wa-widget').addEventListener('click',function(){
         if(tooltip) tooltip.style.display='none';
       });
