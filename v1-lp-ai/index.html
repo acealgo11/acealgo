@@ -29,7 +29,7 @@ src="https://www.facebook.com/tr?id=927113043272086&ev=PageView&noscript=1"/>
 <!-- End Meta Pixel Code -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Ace Algo — Fully automated AI algorithmic trading. 5–17% monthly returns. Your money, your account, your control.">
+<meta name="description" content="Ace Algo. Fully automated AI algorithmic trading in your own account. Your money, your account, your control. Capital at risk.">
 <title>Ace Algo — AI Algorithmic Trading</title>
 <!-- Preconnect critical origins -->
 <link rel="preconnect" href="https://fast.wistia.com">
@@ -129,7 +129,7 @@ body{font-family:var(--font-body);background:var(--black);color:var(--white);lin
 
 /* === NAV === */
 #nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
+  position:fixed;top:44px;left:0;right:0;z-index:100;
   height:var(--nav-h);
   background:rgba(0,0,0,0.9);
   backdrop-filter:blur(20px);
@@ -163,7 +163,7 @@ body{font-family:var(--font-body);background:var(--black);color:var(--white);lin
 /* === HERO === */
 #hero{
   background:var(--gradient-brand);
-  padding-top:calc(var(--nav-h) + 60px);
+  padding-top:calc(var(--nav-h) + 44px + 60px);
   padding-bottom:56px;
   position:relative;overflow:hidden;
 }
@@ -798,6 +798,12 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 </head>
 <body>
 
+<!-- RISK BANNER — mandatory -->
+<div id="risk-banner" style="position:fixed;top:0;left:0;right:0;z-index:201;background:#1a1a1a;border-bottom:1px solid rgba(255,255,255,.15);padding:9px 20px;text-align:center;font-size:12px;color:rgba(255,255,255,.7);line-height:1.5">
+  Trading CFDs and forex carries a high level of risk. 76% of retail investor accounts lose money when trading CFDs. You could lose some or all of your invested capital. Past performance is not a reliable indicator of future results.
+  <button onclick="document.getElementById('risk-banner').style.display='none';document.getElementById('nav').style.top='0';document.getElementById('hero').style.paddingTop='calc(var(--nav-h) + 60px)'" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:16px;cursor:pointer;margin-left:12px;vertical-align:middle;padding:0;line-height:1">✕</button>
+</div>
+
 <!-- NAV -->
 <nav id="nav" role="navigation">
   <div class="nav-inner">
@@ -813,8 +819,8 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 <section id="hero">
   <div class="container hero-inner">
     <p class="hero-pre">AI isn't coming to the markets. It's already here.</p>
-    <h1 class="hero-h1 display">Your Money. Growing Automatically.<br>While You Live Your Life.</h1>
-    <p class="hero-sub">A fully automated AI algorithm compounding your portfolio — zero charts, zero screen time, zero guesswork.</p>
+    <h1 class="hero-h1 display">Your Money. Your Account. Fully Automated.<br>While You Live Your Life.</h1>
+    <p class="hero-sub">A fully automated AI algorithm trading your portfolio in your own account — zero charts, zero screen time, zero guesswork.</p>
 
     <p class="step-label"><span>1</span> Step 1: Watch the video below</p>
     <div class="step-arrow"><span></span><span></span><span></span></div>
@@ -860,7 +866,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
       <div class="stat-item">
         <span class="stat-num">4+ YRS</span>
         <div class="stat-rule"></div>
-        <span class="stat-desc">Tracked<br>Performance</span>
+        <span class="stat-desc">Running</span>
       </div>
       <div class="stat-item">
         <span class="stat-num">1,000+</span>
@@ -870,7 +876,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
       <div class="stat-item">
         <span class="stat-num">£10M+</span>
         <div class="stat-rule"></div>
-        <span class="stat-desc">Assets<br>Deployed</span>
+        <span class="stat-desc">Assets<br>Connected</span>
       </div>
       <div class="stat-item">
         <span class="stat-num">90 Day</span>
@@ -886,7 +892,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 <!-- PROBLEM -->
 <section id="problem">
   <div class="container">
-    <h2 class="display">You've done everything right. And it's still not enough.</h2>
+    <h2 class="display">You've done everything right. And it still feels like standing still.</h2>
     <div class="gold-divider"></div>
     <p class="sub">Most investors are sitting on capital that isn't working hard enough. Here's why.</p>
     <div class="vs-grid">
@@ -903,11 +909,11 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
       <div class="vs-col reality">
         <div class="vs-head">The reality</div>
         <div class="vs-body">
-          <div class="vs-item"><span class="vs-icon">→</span><span>Index funds average 8–10% <em>per year</em>. This algo averages that per month.</span></div>
-          <div class="vs-item"><span class="vs-icon">→</span><span>Your pension is locked until you're 67. Inflation is chasing it the whole time.</span></div>
-          <div class="vs-item"><span class="vs-icon">→</span><span>Time in the market only works if the market cooperates.</span></div>
-          <div class="vs-item"><span class="vs-icon">→</span><span>Savings accounts are losing to inflation every single month.</span></div>
-          <div class="vs-item"><span class="vs-icon">→</span><span>That's exactly why we built a machine to do it instead.</span></div>
+          <div class="vs-item"><span class="vs-icon">→</span><span>Waiting is a strategy. It's just not the only one.</span></div>
+          <div class="vs-item"><span class="vs-icon">→</span><span>Your pension is one plan. It was never meant to be the whole plan.</span></div>
+          <div class="vs-item"><span class="vs-icon">→</span><span>Time in the market only works if you never need the money early.</span></div>
+          <div class="vs-item"><span class="vs-icon">→</span><span>A savings account is a parking spot, not a vehicle.</span></div>
+          <div class="vs-item"><span class="vs-icon">→</span><span>Learning to trade takes years most people don't have. That's exactly why we built a machine to do it instead.</span></div>
         </div>
       </div>
     </div>
@@ -940,8 +946,8 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
       <div class="step-card">
         <div class="step-num">3</div>
         <div class="step-card-body">
-          <h3>Watch It Compound</h3>
-          <p>Profits accumulate directly in your brokerage account. Withdraw to your bank or crypto whenever you choose. No lockups. No permission needed. Your money, your terms.</p>
+          <h3>Watch It Work</h3>
+          <p>Every trade lands directly in your brokerage account the moment it happens. Withdraw to your bank whenever you choose. No lockups. No permission needed. Your money, your terms.</p>
         </div>
       </div>
     </div>
@@ -972,11 +978,11 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           </tr>
         </thead>
         <tbody>
-          <tr><td>Monthly<br>Returns</td><td class="col-ace">5–17%</td><td><span class="cross">✗</span></td><td><span class="dash">Inconsistent</span></td><td><span class="dash">0.5–0.8%</span></td></tr>
-          <tr><td>Passive</td><td class="col-ace"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
-          <tr><td>Withdraw<br>Anytime</td><td class="col-ace"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="cross">Age 67+</span></td></tr>
-          <tr><td>High-Leverage<br>AI Tech</td><td class="col-ace"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
-          <tr><td>90-Day<br>Guarantee</td><td class="col-ace"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td>Fully<br>Automated</td><td class="col-ace"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>Trades in<br>Your Account</td><td class="col-ace"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td>Withdraw<br>Anytime</td><td class="col-ace"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="cross">Age 55+</span></td></tr>
+          <tr><td>See Every<br>Trade Live</td><td class="col-ace"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td>90-Day<br>Fee-Refund</td><td class="col-ace"><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -1033,7 +1039,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 <section id="testimonials">
   <div class="blue-glow-right" style="position:absolute;bottom:-80px;right:-120px;width:500px;height:500px;background:radial-gradient(circle,rgba(53,51,205,.18) 0%,transparent 65%);pointer-events:none"></div>
   <div class="container">
-    <p style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:16px;position:relative;z-index:1">Real investors. Real results.</p>
+    <p style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:16px;position:relative;z-index:1">Real members. Real words.</p>
     <h2 class="display">What Our Members Say</h2>
     <div class="gold-divider"></div>
 
@@ -1043,60 +1049,60 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
         <div class="tcard-top">
           <div class="tcard-identity"><span class="tcard-name">Sarah Jenkins</span><span class="tcard-sep">·</span><span class="tcard-loc">London, UK</span></div>
         </div>
-        <div class="tcard-result">+15%<span class="tcard-result-label">in 1 month</span></div>
-        <img src="https://i.ibb.co/GQGnVN9Q/T1.png" alt="Member result" class="tcard-img" loading="lazy">
+        <div class="tcard-result" style="font-size:15px;font-weight:600;line-height:1.5">"Set up in one call. By that evening I was watching trades hit my own account."</div>
+        <img src="https://i.ibb.co/GQGnVN9Q/T1.png" alt="Sarah Jenkins" class="tcard-img" loading="lazy">
       </div>
 
       <div class="tcard">
         <div class="tcard-top">
           <div class="tcard-identity"><span class="tcard-name">Carlton Grimm</span><span class="tcard-sep">·</span><span class="tcard-loc">Miami, US</span></div>
         </div>
-        <div class="tcard-result">+41%<span class="tcard-result-label">in 3 months</span></div>
-        <img src="https://i.ibb.co/C5SRYwmw/imageye-imgi-72-k0-Hk-MKtytll1p-Bdo-I0-Yt-U3-FUc.webp" alt="Member result" class="tcard-img" loading="lazy">
+        <div class="tcard-result" style="font-size:15px;font-weight:600;line-height:1.5">"Tried two other systems. This is the only one I didn't have to babysit."</div>
+        <img src="https://i.ibb.co/C5SRYwmw/imageye-imgi-72-k0-Hk-MKtytll1p-Bdo-I0-Yt-U3-FUc.webp" alt="Carlton Grimm" class="tcard-img" loading="lazy">
       </div>
 
       <div class="tcard">
         <div class="tcard-top">
           <div class="tcard-identity"><span class="tcard-name">Ben Davies</span><span class="tcard-sep">·</span><span class="tcard-loc">Cardiff, UK</span></div>
         </div>
-        <div class="tcard-result">+59%<span class="tcard-result-label">in 4 months</span></div>
-        <img src="https://i.ibb.co/7xZJ2zb0/T2.png" alt="Member result" class="tcard-img" loading="lazy">
+        <div class="tcard-result" style="font-size:15px;font-weight:600;line-height:1.5">"I tried learning to trade twice and quit twice. This just runs. I don't touch anything."</div>
+        <img src="https://i.ibb.co/7xZJ2zb0/T2.png" alt="Ben Davies" class="tcard-img" loading="lazy">
       </div>
 
       <div class="tcard">
         <div class="tcard-top">
           <div class="tcard-identity"><span class="tcard-name">Lewis McCaulay</span><span class="tcard-sep">·</span><span class="tcard-loc">Perth, AUS</span></div>
         </div>
-        <div class="tcard-result">+45%<span class="tcard-result-label">in 3 months</span></div>
-        <img src="https://i.ibb.co/cKLWnD3C/imageye-imgi-12-TKe-S26-Uq-M1c-UI6o0-QXJIGXLYUH0.webp" alt="Member result" class="tcard-img" loading="lazy">
+        <div class="tcard-result" style="font-size:15px;font-weight:600;line-height:1.5">"What sold me was the control. My money, my account, and I can see every single position live."</div>
+        <img src="https://i.ibb.co/cKLWnD3C/imageye-imgi-12-TKe-S26-Uq-M1c-UI6o0-QXJIGXLYUH0.webp" alt="Lewis McCaulay" class="tcard-img" loading="lazy">
       </div>
 
       <div class="tcard">
         <div class="tcard-top">
           <div class="tcard-identity"><span class="tcard-name">Liam Patel</span><span class="tcard-sep">·</span><span class="tcard-loc">London, UK</span></div>
         </div>
-        <div class="tcard-result">£1k<span class="tcard-result-label">in 5 days</span></div>
-        <img src="https://i.ibb.co/pBBSbX31/T3.png" alt="Member result" class="tcard-img" loading="lazy">
+        <div class="tcard-result" style="font-size:15px;font-weight:600;line-height:1.5">"No lockups was the dealbreaker for me. I tested a withdrawal in week one and it hit my bank next day."</div>
+        <img src="https://i.ibb.co/pBBSbX31/T3.png" alt="Liam Patel" class="tcard-img" loading="lazy">
       </div>
 
       <div class="tcard">
         <div class="tcard-top">
           <div class="tcard-identity"><span class="tcard-name">Sam Morley</span><span class="tcard-sep">·</span><span class="tcard-loc">Manchester, UK</span></div>
         </div>
-        <div class="tcard-result">+69%<span class="tcard-result-label">in 5 months</span></div>
-        <img src="https://i.ibb.co/Hp3P6ZwZ/imageye-imgi-80-l93-GPm-HUp-Sp-Vy-OKuc-POb-BZLFA6s.webp" alt="Member result" class="tcard-img" loading="lazy">
+        <div class="tcard-result" style="font-size:15px;font-weight:600;line-height:1.5">"The transparency is what got me. You see every trade as it happens. No black box."</div>
+        <img src="https://i.ibb.co/Hp3P6ZwZ/imageye-imgi-80-l93-GPm-HUp-Sp-Vy-OKuc-POb-BZLFA6s.webp" alt="Sam Morley" class="tcard-img" loading="lazy">
       </div>
     </div>
 
     <!-- Mobile carousel -->
     <div class="tcarousel" id="tcarousel" aria-label="Member testimonials">
       <div class="tcarousel-track" id="ttrack">
-        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Sarah Jenkins</span><span class="tcard-sep">·</span><span class="tcard-loc">London, UK</span></div></div><div class="tcard-result">+15%<span class="tcard-result-label">in 1 month</span></div><img src="https://i.ibb.co/GQGnVN9Q/T1.png" alt="Member result" class="tcard-img" loading="lazy"></div>
-        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Carlton Grimm</span><span class="tcard-sep">·</span><span class="tcard-loc">Miami, US</span></div></div><div class="tcard-result">+41%<span class="tcard-result-label">in 3 months</span></div><img src="https://i.ibb.co/C5SRYwmw/imageye-imgi-72-k0-Hk-MKtytll1p-Bdo-I0-Yt-U3-FUc.webp" alt="Member result" class="tcard-img" loading="lazy"></div>
-        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Ben Davies</span><span class="tcard-sep">·</span><span class="tcard-loc">Cardiff, UK</span></div></div><div class="tcard-result">+59%<span class="tcard-result-label">in 4 months</span></div><img src="https://i.ibb.co/7xZJ2zb0/T2.png" alt="Member result" class="tcard-img" loading="lazy"></div>
-        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Lewis McCaulay</span><span class="tcard-sep">·</span><span class="tcard-loc">Perth, AUS</span></div></div><div class="tcard-result">+45%<span class="tcard-result-label">in 3 months</span></div><img src="https://i.ibb.co/cKLWnD3C/imageye-imgi-12-TKe-S26-Uq-M1c-UI6o0-QXJIGXLYUH0.webp" alt="Member result" class="tcard-img" loading="lazy"></div>
-        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Liam Patel</span><span class="tcard-sep">·</span><span class="tcard-loc">London, UK</span></div></div><div class="tcard-result">£1k<span class="tcard-result-label">in 5 days</span></div><img src="https://i.ibb.co/pBBSbX31/T3.png" alt="Member result" class="tcard-img" loading="lazy"></div>
-        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Sam Morley</span><span class="tcard-sep">·</span><span class="tcard-loc">Manchester, UK</span></div></div><div class="tcard-result">+69%<span class="tcard-result-label">in 5 months</span></div><img src="https://i.ibb.co/Hp3P6ZwZ/imageye-imgi-80-l93-GPm-HUp-Sp-Vy-OKuc-POb-BZLFA6s.webp" alt="Member result" class="tcard-img" loading="lazy"></div>
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Sarah Jenkins</span><span class="tcard-sep">·</span><span class="tcard-loc">London, UK</span></div></div><div class="tcard-result" style="font-size:14px;font-weight:600;line-height:1.5">"Set up in one call. By that evening I was watching trades hit my own account."</div><img src="https://i.ibb.co/GQGnVN9Q/T1.png" alt="Sarah Jenkins" class="tcard-img" loading="lazy"></div>
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Carlton Grimm</span><span class="tcard-sep">·</span><span class="tcard-loc">Miami, US</span></div></div><div class="tcard-result" style="font-size:14px;font-weight:600;line-height:1.5">"Tried two other systems. This is the only one I didn't have to babysit."</div><img src="https://i.ibb.co/C5SRYwmw/imageye-imgi-72-k0-Hk-MKtytll1p-Bdo-I0-Yt-U3-FUc.webp" alt="Carlton Grimm" class="tcard-img" loading="lazy"></div>
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Ben Davies</span><span class="tcard-sep">·</span><span class="tcard-loc">Cardiff, UK</span></div></div><div class="tcard-result" style="font-size:14px;font-weight:600;line-height:1.5">"I tried learning to trade twice and quit twice. This just runs. I don't touch anything."</div><img src="https://i.ibb.co/7xZJ2zb0/T2.png" alt="Ben Davies" class="tcard-img" loading="lazy"></div>
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Lewis McCaulay</span><span class="tcard-sep">·</span><span class="tcard-loc">Perth, AUS</span></div></div><div class="tcard-result" style="font-size:14px;font-weight:600;line-height:1.5">"What sold me was the control. My money, my account, and I can see every single position live."</div><img src="https://i.ibb.co/cKLWnD3C/imageye-imgi-12-TKe-S26-Uq-M1c-UI6o0-QXJIGXLYUH0.webp" alt="Lewis McCaulay" class="tcard-img" loading="lazy"></div>
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Liam Patel</span><span class="tcard-sep">·</span><span class="tcard-loc">London, UK</span></div></div><div class="tcard-result" style="font-size:14px;font-weight:600;line-height:1.5">"No lockups was the dealbreaker for me. I tested a withdrawal in week one and it hit my bank next day."</div><img src="https://i.ibb.co/pBBSbX31/T3.png" alt="Liam Patel" class="tcard-img" loading="lazy"></div>
+        <div class="tcard"><div class="tcard-top"><div class="tcard-identity"><span class="tcard-name">Sam Morley</span><span class="tcard-sep">·</span><span class="tcard-loc">Manchester, UK</span></div></div><div class="tcard-result" style="font-size:14px;font-weight:600;line-height:1.5">"The transparency is what got me. You see every trade as it happens. No black box."</div><img src="https://i.ibb.co/Hp3P6ZwZ/imageye-imgi-80-l93-GPm-HUp-Sp-Vy-OKuc-POb-BZLFA6s.webp" alt="Sam Morley" class="tcard-img" loading="lazy"></div>
       </div>
       <div class="tcarousel-dots" id="tdots"></div>
       <div class="tcarousel-btns">
@@ -1123,7 +1129,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           <span class="faq-q">How much capital do I need to get started?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-body"><p class="faq-a">The system works best with accounts above £5,000–£10,000, though it can operate on smaller and much larger balances. Larger accounts benefit from better risk-adjusted performance and smoother compounding.</p></div>
+        <div class="faq-body"><p class="faq-a">The system operates across a range of account sizes — smaller and much larger. We cover minimums and whether it fits your situation on your call. One rule we don't bend: never trade money you can't afford to lose.</p></div>
       </div>
 
       <div class="faq-item">
@@ -1131,7 +1137,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           <span class="faq-q">Is my money safe? Who holds it?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-body"><p class="faq-a">Your money is held in your own account at Vantage Markets — a broker regulated by ASIC with $50M client fund insurance underwritten by Lloyd's of London. We never touch, hold, or have access to your capital. You see every trade in real time and can withdraw whenever you choose.</p></div>
+        <div class="faq-body"><p class="faq-a">Your money is held in your own account at Vantage Markets, a broker regulated by ASIC (Australia), with client funds held in segregated accounts. We never touch, hold, or have access to your capital. You see every trade in real time and can withdraw whenever you choose. To be clear: holding your own funds protects you from us. It does not protect you from trading losses. Those are real.</p></div>
       </div>
 
       <div class="faq-item">
@@ -1139,7 +1145,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           <span class="faq-q">Can I withdraw my money at any time?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-body"><p class="faq-a">Yes — completely. There are no lockup periods, no waiting times, and no permission required. Your money is in your account and you can withdraw to your bank or crypto wallet whenever you want. This is your money, on your terms.</p></div>
+        <div class="faq-body"><p class="faq-a">Yes — completely. There are no lockup periods, no waiting times, and no permission required. Your money is in your account and you can withdraw to your bank whenever you want. This is your money, on your terms.</p></div>
       </div>
 
       <div class="faq-item">
@@ -1155,7 +1161,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           <span class="faq-q">How does the system manage risk?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-body"><p class="faq-a">Risk is built into every layer of the model. Position size is volatility-scaled, stop-losses are adaptive, and maximum drawdown controls are enforced at the portfolio level. The system is engineered to prioritize capital preservation and long-term stability.</p></div>
+        <div class="faq-body"><p class="faq-a">Risk is built into every layer of the model. Position size is volatility-scaled, stop-losses are adaptive, and maximum drawdown controls are enforced at the portfolio level. The system is engineered to prioritize capital preservation and long-term stability. No risk system eliminates losses. This one is built to manage them.</p></div>
       </div>
 
       <div class="faq-item">
@@ -1171,7 +1177,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           <span class="faq-q">Do I need any trading experience?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-body"><p class="faq-a">None whatsoever. Most of our members came in with little to no trading experience. Some had tried before and failed. None of that matters — you're not here to trade, you're here to let a machine do it for you. Your job is simply to let it run.</p></div>
+        <div class="faq-body"><p class="faq-a">None whatsoever. Most of our members came in with little to no trading experience. Some had tried before and failed. You're not here to trade — you're here to let a machine do it. What you do need is to understand the risks of leveraged trading before connecting capital. We walk through them on your call, straight, no gloss.</p></div>
       </div>
 
       <div class="faq-item">
@@ -1179,7 +1185,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
           <span class="faq-q">How does the 90-day guarantee work?</span>
           <span class="faq-icon">+</span>
         </button>
-        <div class="faq-body"><p class="faq-a">Simple. If within 90 days you're not happy with your results — or you're simply not comfortable — you get every penny back. No hoops, no awkward conversations, no small print. We offer this because we know what this system delivers, and we'd rather prove it than ask you to trust us.</p></div>
+        <div class="faq-body"><p class="faq-a">Simple. If within 90 days you're not happy, or simply not comfortable, we refund our service fees in full. No hoops, no awkward conversations, no small print. To be straight with you: that's a refund of what you paid us. Nobody can guarantee trading outcomes, and anyone who tells you otherwise is lying to you.</p></div>
       </div>
 
       <div class="faq-item">
@@ -1192,6 +1198,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
     </div>
   </div>
 </section>
+
 
 <hr class="section-rule">
 
@@ -1210,25 +1217,12 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
       <div class="safety-pt">
         <div class="safety-icon">💳</div>
         <h3>Withdraw When You Choose</h3>
-        <p>Deposit when you're ready. Withdraw your profits to your bank or crypto — no lockups, no permission required, no waiting.</p>
+        <p>Deposit when you're ready. Withdraw whenever you want. No lockups, no permission required, no waiting.</p>
       </div>
       <div class="safety-pt">
         <div class="safety-icon">📊</div>
         <h3>Complete Transparency</h3>
         <p>See every trade, every position, every result in real time. No black boxes. No guesswork about where your money is.</p>
-      </div>
-    </div>
-    <div class="broker-box">
-      <div class="broker-logo-box">
-        <img src="https://i.ibb.co/JWxcJDjj/images.png" alt="Vantage Markets" class="broker-logo-img" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-        <span style="display:none;font-family:var(--font-display);font-weight:900;font-size:22px;color:#fff">Vantage Markets</span>
-        <div class="broker-since">Founded 2009 · 15+ years in financial markets</div>
-      </div>
-      <div class="broker-creds">
-        <div class="cred"><span class="cred-check">✓</span><span class="cred-text">ASIC regulated — one of the world's most respected financial regulators</span></div>
-        <div class="cred"><span class="cred-check">✓</span><span class="cred-text">$50 million client fund insurance underwritten by Lloyd's of London</span></div>
-        <div class="cred"><span class="cred-check">✓</span><span class="cred-text">Client funds held in segregated accounts — never mixed with company capital</span></div>
-        <div class="cred"><span class="cred-check">✓</span><span class="cred-text">Official partner of Scuderia Ferrari HP Formula 1 team</span></div>
       </div>
     </div>
   </div>
@@ -1255,9 +1249,9 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
     <div class="footer-inner">
       <img src="https://i.ibb.co/fzv8dPxb/Blue-white.png" alt="Ace Algo" width="100" height="30" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <span style="display:none;align-items:center;gap:6px;font-family:var(--font-display);font-weight:900;font-size:16px;color:#fff"><span style="background:var(--gold);color:#000;padding:2px 6px;border-radius:3px;font-size:13px">A</span>Ace Algo</span>
-      <p class="footer-copy">© 2025 Ace Algo. All rights reserved.</p>
+      <p class="footer-copy">© 2026 Ace Algo. All rights reserved.</p>
     </div>
-    <p class="footer-disc">Risk Warning: Trading CFDs and forex carries a high level of risk and may not be suitable for all investors. Past performance is not indicative of future results. The information on this page does not constitute financial advice. You could lose some or all of your invested capital. Please ensure you fully understand the risks involved and seek independent financial advice if necessary. Ace Algo is not a regulated financial advisor. All returns stated are based on tracked historical data and are not guaranteed.</p>
+    <p class="footer-disc">Risk Warning: Trading CFDs and forex carries a high level of risk and may not be suitable for all investors. 76% of retail investor accounts lose money when trading CFDs. Past performance is not a reliable indicator of future results. You could lose some or all of your invested capital. The information on this page does not constitute financial advice. Ace Algo is not authorised or regulated by the Financial Conduct Authority. Please ensure you fully understand the risks involved and seek independent financial advice if necessary.</p>
   </div>
 </footer>
 
@@ -1337,6 +1331,26 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
       bar.classList.remove('visible');
     }
   }
+  // Risk banner — hide on scroll, adjust nav
+  var riskBanner = document.getElementById('risk-banner');
+  var navEl = document.getElementById('nav');
+  var bannerH = riskBanner ? riskBanner.offsetHeight : 44;
+  var bannerVisible = true;
+  window.addEventListener('scroll', function(){
+    if(!riskBanner) return;
+    if(window.scrollY > 80 && bannerVisible){
+      bannerVisible = false;
+      riskBanner.style.transform = 'translateY(-100%)';
+      riskBanner.style.transition = 'transform .3s ease';
+      navEl.style.top = '0';
+      navEl.style.transition = 'top .3s ease';
+    } else if(window.scrollY <= 80 && !bannerVisible){
+      bannerVisible = true;
+      riskBanner.style.transform = 'translateY(0)';
+      navEl.style.top = bannerH + 'px';
+    }
+  },{passive:true});
+
   window.addEventListener('scroll', checkBarVisibility, {passive:true});
   checkBarVisibility();
 
