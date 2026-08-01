@@ -59,6 +59,7 @@ img{max-width:100%;height:auto;display:block}
   --font-display:'Poppins',sans-serif;
   --font-body:'DM Sans','Helvetica Neue',sans-serif;
   --nav-h:68px;
+  --banner-h:44px;
   --max-w:1120px;
   --pad-x:clamp(20px,5vw,60px);
 }
@@ -129,12 +130,13 @@ body{font-family:var(--font-body);background:var(--black);color:var(--white);lin
 
 /* === NAV === */
 #nav{
-  position:fixed;top:44px;left:0;right:0;z-index:100;
+  position:fixed;top:var(--banner-h);left:0;right:0;z-index:100;
   height:var(--nav-h);
   background:rgba(0,0,0,0.9);
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(201,168,76,0.55);
+  transition:top .3s ease;
 }
 .nav-inner{
   max-width:var(--max-w);width:100%;height:100%;margin:0 auto;
@@ -163,9 +165,10 @@ body{font-family:var(--font-body);background:var(--black);color:var(--white);lin
 /* === HERO === */
 #hero{
   background:var(--gradient-brand);
-  padding-top:calc(var(--nav-h) + 44px + 60px);
+  padding-top:calc(var(--nav-h) + var(--banner-h) + 60px);
   padding-bottom:56px;
   position:relative;overflow:hidden;
+  transition:padding-top .3s ease;
 }
 #hero::before{
   content:'';position:absolute;inset:0;
@@ -198,6 +201,9 @@ body{font-family:var(--font-body);background:var(--black);color:var(--white);lin
   letter-spacing:-.01em;
 }
 @media(max-width:768px){.hero-h1{font-size:28px;letter-spacing:-.02em;padding:0 8px}}
+@media(max-width:480px){
+  #risk-banner{font-size:10.5px !important;line-height:1.45 !important;padding:8px 12px !important}
+}
 @media(max-width:768px){.hero-h1 br{display:inline}}
 .hero-sub{
   font-size:clamp(15px,2vw,18px);
@@ -801,8 +807,53 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 <!-- RISK BANNER — mandatory -->
 <div id="risk-banner" style="position:fixed;top:0;left:0;right:0;z-index:201;background:#1a1a1a;border-bottom:1px solid rgba(255,255,255,.15);padding:9px 20px;text-align:center;font-size:12px;color:rgba(255,255,255,.7);line-height:1.5">
   Trading CFDs and forex carries a high level of risk. 76% of retail investor accounts lose money when trading CFDs. You could lose some or all of your invested capital. Past performance is not a reliable indicator of future results.
-  <button onclick="document.getElementById('risk-banner').style.display='none';document.getElementById('nav').style.top='0';document.getElementById('hero').style.paddingTop='calc(var(--nav-h) + 60px)'" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:16px;cursor:pointer;margin-left:12px;vertical-align:middle;padding:0;line-height:1">✕</button>
+  <button id="risk-banner-close" aria-label="Dismiss disclaimer" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:16px;cursor:pointer;margin-left:12px;vertical-align:middle;padding:0;line-height:1">✕</button>
 </div>
+<script>
+  // Measure the banner synchronously (it's already rendered above) and feed
+  // its real height into --banner-h so nav + hero padding always match it —
+  // regardless of how many lines the disclaimer text wraps to on this screen.
+  (function(){
+    var banner = document.getElementById('risk-banner');
+    var root = document.documentElement;
+    var dismissed = false;
+
+    function measure(){
+      if(dismissed) return;
+      root.style.setProperty('--banner-h', banner.offsetHeight + 'px');
+    }
+    measure();
+    window.addEventListener('resize', measure);
+
+    document.getElementById('risk-banner-close').addEventListener('click', function(){
+      dismissed = true;
+      banner.style.display = 'none';
+      root.style.setProperty('--banner-h', '0px');
+      window.removeEventListener('scroll', onScroll);
+    });
+
+    // Hide banner (and reclaim its space) once the visitor scrolls down;
+    // restore it if they scroll back to the very top — but never once
+    // it's been manually dismissed.
+    var collapsed = false;
+    var bannerH = null;
+    function onScroll(){
+      if(dismissed) return;
+      if(bannerH === null) bannerH = banner.offsetHeight;
+      if(window.scrollY > 80 && !collapsed){
+        collapsed = true;
+        banner.style.transform = 'translateY(-100%)';
+        banner.style.transition = 'transform .3s ease';
+        root.style.setProperty('--banner-h', '0px');
+      } else if(window.scrollY <= 80 && collapsed){
+        collapsed = false;
+        banner.style.transform = 'translateY(0)';
+        root.style.setProperty('--banner-h', bannerH + 'px');
+      }
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+</script>
 
 <!-- NAV -->
 <nav id="nav" role="navigation">
@@ -1331,26 +1382,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
       bar.classList.remove('visible');
     }
   }
-  // Risk banner — hide on scroll, adjust nav
-  var riskBanner = document.getElementById('risk-banner');
-  var navEl = document.getElementById('nav');
-  var bannerH = riskBanner ? riskBanner.offsetHeight : 44;
-  var bannerVisible = true;
-  window.addEventListener('scroll', function(){
-    if(!riskBanner) return;
-    if(window.scrollY > 80 && bannerVisible){
-      bannerVisible = false;
-      riskBanner.style.transform = 'translateY(-100%)';
-      riskBanner.style.transition = 'transform .3s ease';
-      navEl.style.top = '0';
-      navEl.style.transition = 'top .3s ease';
-    } else if(window.scrollY <= 80 && !bannerVisible){
-      bannerVisible = true;
-      riskBanner.style.transform = 'translateY(0)';
-      navEl.style.top = bannerH + 'px';
-    }
-  },{passive:true});
-
   window.addEventListener('scroll', checkBarVisibility, {passive:true});
   checkBarVisibility();
 
