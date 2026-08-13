@@ -115,6 +115,20 @@ body{font-family:var(--font-body);background:var(--black);color:var(--white);lin
   font-weight:300;line-height:1.7;
 }
 
+/* reach-out notice */
+.reach-out-notice{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(201,168,76,.12);
+  border:1px solid rgba(201,168,76,.45);
+  border-radius:10px;
+  padding:13px 20px;
+  font-size:clamp(11px,2.1vw,15px);font-weight:600;color:rgba(255,255,255,.95);
+  max-width:100%;margin:0 auto 24px;
+  line-height:1.5;
+  white-space:nowrap;justify-content:center;text-align:center;
+}
+.reach-out-notice .gold{font-weight:800;white-space:nowrap}
+
 /* urgency live dot bar */
 .urgency-bar{
   display:inline-flex;align-items:center;gap:10px;
@@ -168,28 +182,6 @@ body{font-family:var(--font-body);background:var(--black);color:var(--white);lin
   display:flex;align-items:center;justify-content:center;
   font-size:13px;font-weight:900;font-family:var(--font-display);
   margin-top:1px;
-}
-
-
-
-
-
-
-  32%{stroke-dashoffset:0;opacity:1}
-  40%{stroke-dashoffset:0;opacity:0}
-  100%{stroke-dashoffset:220;opacity:0}
-}
-32%,39%{opacity:1}41%,100%{opacity:0}
-}
-
-
-
-  41%{opacity:1}
-  72%{stroke-dashoffset:0;opacity:1}
-  80%{stroke-dashoffset:0;opacity:0}
-  100%{stroke-dashoffset:220;opacity:0}
-}
-72%,79%{opacity:1}81%,100%{opacity:0}
 }
 
 /* === STATS BAR === */
@@ -528,7 +520,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
 
       <div class="confirm-badge">
         <div class="check-circle">✓</div>
-        Your call is confirmed
+        Your call is scheduled
       </div>
 
       <h1 class="confirm-h1 display">
@@ -538,6 +530,10 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.07);paddin
       <p class="confirm-sub">
         Watch the short video below before your call. It will make the conversation 10x more valuable — and make it easy to walk away with certainty, not more questions.
       </p>
+
+      <div class="reach-out-notice">
+        A member of the team will reach out from <span class="gold">+44 7462 123336</span> to confirm your call.
+      </div>
 
       <div class="urgency-bar">
         <span class="urgency-dot"></span>
