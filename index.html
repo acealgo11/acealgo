@@ -144,7 +144,7 @@ a{color:inherit;text-decoration:none}
 .perf-bar-wrap{flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
 .perf-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));transform-origin:left;animation:growBar .8s ease-out forwards}
 @keyframes growBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-.perf-val{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--gold);min-width:40px;text-align:right}
+.perf-val{font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--gold);min-width:48px;text-align:right}
 .hero-card-divider{height:1px;background:rgba(255,255,255,.07);margin:20px 0}
 .hero-card-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .hcs-item{text-align:center}
@@ -227,6 +227,7 @@ a{color:inherit;text-decoration:none}
 .mn{font-size:11px;color:#888;font-weight:600;letter-spacing:.06em;margin-bottom:6px}
 .mv{font-family:var(--font-display);font-size:18px;font-weight:900}
 .mv.pos{color:#16a34a}
+@media(max-width:480px){.month{padding:14px 4px}.mv{font-size:15px}}
 .profile-foot{padding:16px 32px;border-top:1px solid rgba(0,0,0,.06)}
 .btn-breakdown{background:none;border:none;color:var(--blue);font-size:14px;font-weight:600;cursor:pointer;padding:0;transition:color .2s}
 .btn-breakdown:hover{color:var(--gold)}
@@ -245,31 +246,23 @@ a{color:inherit;text-decoration:none}
 .why-card h3{font-family:var(--font-display);font-size:18px;font-weight:700;color:#fff;margin-bottom:10px}
 .why-card p{font-size:14px;color:rgba(255,255,255,.7);line-height:1.75}
 
-/* BROKER — white bg, 2x2 grid + Vantage card below */
+/* BROKER */
 #broker{background:var(--navy);padding:100px 0;overflow:visible}
 #broker h2{font-family:var(--font-display);font-size:clamp(28px,3.5vw,48px);font-weight:900;color:#fff;letter-spacing:-.02em;margin-bottom:14px}
 #broker .sec-sub{font-size:17px;color:rgba(255,255,255,.75);max-width:520px;margin-bottom:48px;line-height:1.7}
-.broker-points-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-@media(max-width:640px){.broker-points-grid{grid-template-columns:1fr}}
+.broker-points-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.broker-points-grid{grid-template-columns:1fr}}
 .broker-point{display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,.07);border:1px solid rgba(201,168,76,.55);border-radius:10px;padding:24px 24px;transition:border-color .2s,background .2s}
 .broker-point:hover{border-color:var(--gold);background:rgba(255,255,255,.1)}
 .broker-point-icon{width:40px;height:40px;border-radius:8px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .broker-point-body h4{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
 .broker-point-body p{font-size:13px;color:rgba(255,255,255,.65);line-height:1.6}
-/* Vantage card */
-.vantage-card{background:var(--navy);border:1px solid rgba(201,168,76,.3);border-radius:var(--radius);padding:32px 36px;display:flex;align-items:center;gap:32px;flex-wrap:wrap}
-.vantage-logo-wrap{flex-shrink:0}
-.vantage-logo-wrap img{height:48px;width:auto;filter:brightness(10)}
-.vantage-creds{flex:1;min-width:220px}
-.cred{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:14px;color:rgba(255,255,255,.85);line-height:1.5}
-.cred:last-child{margin-bottom:0}
-.cred-check{color:var(--gold);font-weight:700;flex-shrink:0;margin-top:1px}
 
 /* Mobile carousel for broker */
 .broker-carousel{display:none}
 @media(max-width:640px){
   .broker-points-grid{display:none}
-  .broker-carousel{display:block;margin-bottom:20px;overflow:hidden;width:calc(100% + 40px);margin-left:-20px}
+  .broker-carousel{display:block;overflow:hidden;width:calc(100% + 40px);margin-left:-20px}
   .broker-carousel-track{display:flex;transition:transform .35s ease;will-change:transform;padding-left:20px}
   .broker-carousel-track .broker-point{min-width:80%;max-width:80%;flex-shrink:0;margin:0 10px 0 0;box-sizing:border-box}
   .broker-dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
@@ -295,7 +288,7 @@ a{color:inherit;text-decoration:none}
   .tcarousel-dots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(0,0,0,.2);cursor:pointer;padding:0;transition:background .2s,transform .2s}
   .tcarousel-dots button.active{background:var(--gold);transform:scale(1.3)}
 }
-.tcard{background:#fff;border:1px solid rgba(0,0,0,.08);border-shadow:0 4px 20px rgba(0,0,0,.06);border-radius:var(--radius);padding:28px 26px;transition:border-color .2s,transform .2s;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.tcard{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:var(--radius);padding:28px 26px;transition:border-color .2s,transform .2s;box-shadow:0 4px 20px rgba(0,0,0,.06)}
 .tcard:hover{border-color:var(--gold);transform:translateY(-3px)}
 .tcard-top{margin-bottom:12px}
 .tcard-identity{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -394,51 +387,42 @@ a{color:inherit;text-decoration:none}
   <!-- Candlestick background -->
   <div class="hero-candles" aria-hidden="true">
     <svg viewBox="0 0 1400 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-      <!-- Candles arranged diagonally: bottom-left starts low (y~580), top-right ends high (y~80) -->
-      <!-- Each candle: centre x, wick_top, wick_bot, body_top, body_h, filled -->
-      <!-- Col 1 — far bottom left, tall bodies low on screen -->
       <line x1="42"   y1="480" x2="42"   y2="660" stroke="#fff" stroke-width="1.5"/>
       <rect x="30"    y="510"  width="24" height="110" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
       <line x1="92"   y1="460" x2="92"   y2="650" stroke="#fff" stroke-width="1.5"/>
       <rect x="80"    y="490"  width="24" height="120" fill="none" stroke="#fff" stroke-width="1.5" rx="1"/>
       <line x1="142"  y1="440" x2="142"  y2="630" stroke="#fff" stroke-width="1.5"/>
       <rect x="130"   y="470"  width="24" height="110" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
-      <!-- Col 2 -->
       <line x1="220"  y1="390" x2="220"  y2="590" stroke="#fff" stroke-width="1.5"/>
       <rect x="208"   y="420"  width="24" height="120" fill="none" stroke="#fff" stroke-width="1.5" rx="1"/>
       <line x1="270"  y1="370" x2="270"  y2="570" stroke="#fff" stroke-width="1.5"/>
       <rect x="258"   y="400"  width="24" height="110" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
       <line x1="320"  y1="350" x2="320"  y2="560" stroke="#fff" stroke-width="1.5"/>
       <rect x="308"   y="385"  width="24" height="125" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
-      <!-- Col 3 -->
       <line x1="400"  y1="300" x2="400"  y2="510" stroke="#fff" stroke-width="1.5"/>
       <rect x="388"   y="330"  width="24" height="130" fill="none" stroke="#fff" stroke-width="1.5" rx="1"/>
       <line x1="450"  y1="280" x2="450"  y2="490" stroke="#fff" stroke-width="1.5"/>
       <rect x="438"   y="310"  width="24" height="120" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
       <line x1="500"  y1="260" x2="500"  y2="470" stroke="#fff" stroke-width="1.5"/>
       <rect x="488"   y="290"  width="24" height="130" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
-      <!-- Col 4 -->
       <line x1="580"  y1="220" x2="580"  y2="430" stroke="#fff" stroke-width="1.5"/>
       <rect x="568"   y="250"  width="24" height="120" fill="none" stroke="#fff" stroke-width="1.5" rx="1"/>
       <line x1="630"  y1="200" x2="630"  y2="410" stroke="#fff" stroke-width="1.5"/>
       <rect x="618"   y="230"  width="24" height="130" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
       <line x1="680"  y1="185" x2="680"  y2="390" stroke="#fff" stroke-width="1.5"/>
       <rect x="668"   y="215"  width="24" height="120" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
-      <!-- Col 5 -->
       <line x1="760"  y1="155" x2="760"  y2="360" stroke="#fff" stroke-width="1.5"/>
       <rect x="748"   y="185"  width="24" height="125" fill="none" stroke="#fff" stroke-width="1.5" rx="1"/>
       <line x1="810"  y1="135" x2="810"  y2="340" stroke="#fff" stroke-width="1.5"/>
       <rect x="798"   y="165"  width="24" height="120" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
       <line x1="860"  y1="120" x2="860"  y2="320" stroke="#fff" stroke-width="1.5"/>
       <rect x="848"   y="150"  width="24" height="115" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
-      <!-- Col 6 -->
       <line x1="940"  y1="90"  x2="940"  y2="290" stroke="#fff" stroke-width="1.5"/>
       <rect x="928"   y="120"  width="24" height="120" fill="none" stroke="#fff" stroke-width="1.5" rx="1"/>
       <line x1="990"  y1="75"  x2="990"  y2="270" stroke="#fff" stroke-width="1.5"/>
       <rect x="978"   y="105"  width="24" height="115" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
       <line x1="1040" y1="60"  x2="1040" y2="255" stroke="#fff" stroke-width="1.5"/>
       <rect x="1028"  y="90"   width="24" height="120" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
-      <!-- Col 7 — top right, highest -->
       <line x1="1120" y1="40"  x2="1120" y2="230" stroke="#fff" stroke-width="1.5"/>
       <rect x="1108"  y="68"   width="24" height="110" fill="none" stroke="#fff" stroke-width="1.5" rx="1"/>
       <line x1="1170" y1="25"  x2="1170" y2="215" stroke="#fff" stroke-width="1.5"/>
@@ -449,11 +433,9 @@ a{color:inherit;text-decoration:none}
       <rect x="1258"  y="38"   width="24" height="105" fill="none" stroke="#fff" stroke-width="1.5" rx="1"/>
       <line x1="1350" y1="8"   x2="1350" y2="188" stroke="#fff" stroke-width="1.5"/>
       <rect x="1338"  y="35"   width="24" height="108" fill="#fff"  stroke="#fff" stroke-width="1.5" rx="1"/>
-      <!-- Gold trend line — clear diagonal bottom-left to top-right -->
       <polyline
         points="42,565 92,550 142,525 220,480 270,455 320,448 400,395 450,370 500,355 580,310 630,295 680,275 760,248 810,225 860,208 940,180 990,163 1040,150 1120,122 1170,110 1220,97 1270,90 1350,80"
         stroke="rgba(201,168,76,0.7)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <!-- Subtle area fill under trend line -->
       <polyline
         points="42,565 92,550 142,525 220,480 270,455 320,448 400,395 450,370 500,355 580,310 630,295 680,275 760,248 810,225 860,208 940,180 990,163 1040,150 1120,122 1170,110 1220,97 1270,90 1350,80 1350,700 42,700"
         fill="rgba(201,168,76,0.04)" stroke="none"/>
@@ -488,18 +470,18 @@ a{color:inherit;text-decoration:none}
         <div class="hero-card">
           <div class="hero-card-label">Live Performance — A1 Stable Profile</div>
           <div class="perf-rows">
-            <div class="perf-row"><span class="perf-row-label">March</span><div class="perf-bar-wrap"><div class="perf-bar" style="width:43%"></div></div><span class="perf-val">+6%</span></div>
-            <div class="perf-row"><span class="perf-row-label">April</span><div class="perf-bar-wrap"><div class="perf-bar" style="width:50%"></div></div><span class="perf-val">+7%</span></div>
             <div class="perf-row"><span class="perf-row-label">May</span><div class="perf-bar-wrap"><div class="perf-bar" style="width:43%"></div></div><span class="perf-val">+6%</span></div>
             <div class="perf-row"><span class="perf-row-label">June</span><div class="perf-bar-wrap"><div class="perf-bar" style="width:79%"></div></div><span class="perf-val">+11%</span></div>
             <div class="perf-row"><span class="perf-row-label">July</span><div class="perf-bar-wrap"><div class="perf-bar" style="width:50%"></div></div><span class="perf-val">+7%</span></div>
+            <div class="perf-row"><span class="perf-row-label">August</span><div class="perf-bar-wrap"><div class="perf-bar" style="width:32%"></div></div><span class="perf-val">+4.5%</span></div>
+            <div class="perf-row"><span class="perf-row-label">September</span><div class="perf-bar-wrap"><div class="perf-bar" style="width:64%"></div></div><span class="perf-val">+9%</span></div>
           </div>
           <div class="hero-card-divider"></div>
           <div class="hero-card-stats">
             <div class="hcs-item"><span class="hcs-num">4+ Yrs</span><span class="hcs-desc">Tracked data</span></div>
             <div class="hcs-item"><span class="hcs-num">£10M+</span><span class="hcs-desc">Deployed</span></div>
             <div class="hcs-item"><span class="hcs-num">90 Day</span><span class="hcs-desc">User Trial</span></div>
-            <div class="hcs-item"><span class="hcs-num">ASIC</span><span class="hcs-desc">Regulated</span></div>
+            <div class="hcs-item"><span class="hcs-num">0</span><span class="hcs-desc">Lockup periods</span></div>
           </div>
         </div>
       </div>
@@ -515,7 +497,6 @@ a{color:inherit;text-decoration:none}
     <div class="ticker-item"><div class="ticker-dot"></div>5–17% Monthly Returns</div>
     <div class="ticker-item"><div class="ticker-dot"></div>£10M+ Assets Deployed</div>
     <div class="ticker-item"><div class="ticker-dot"></div>90 Day User Trial</div>
-    <div class="ticker-item"><div class="ticker-dot"></div>ASIC Regulated Broker</div>
     <div class="ticker-item"><div class="ticker-dot"></div>Zero Lockup Periods</div>
     <div class="ticker-item"><div class="ticker-dot"></div>Your Money, Your Account</div>
     <div class="ticker-item"><div class="ticker-dot"></div>4+ Years Tracked Performance</div>
@@ -523,7 +504,6 @@ a{color:inherit;text-decoration:none}
     <div class="ticker-item"><div class="ticker-dot"></div>5–17% Monthly Returns</div>
     <div class="ticker-item"><div class="ticker-dot"></div>£10M+ Assets Deployed</div>
     <div class="ticker-item"><div class="ticker-dot"></div>90 Day User Trial</div>
-    <div class="ticker-item"><div class="ticker-dot"></div>ASIC Regulated Broker</div>
     <div class="ticker-item"><div class="ticker-dot"></div>Zero Lockup Periods</div>
     <div class="ticker-item"><div class="ticker-dot"></div>Your Money, Your Account</div>
   </div>
@@ -573,7 +553,7 @@ a{color:inherit;text-decoration:none}
         <div class="how-step-icon">🏦</div>
         <span class="how-step-num">01</span>
         <h3>Open Your Account</h3>
-        <p>You open a regulated brokerage account in your own name at Vantage Markets. Your capital sits there under your full control — accessible whenever you want it. We never hold or touch your money.</p>
+        <p>You open a regulated brokerage account in your own name. Your capital sits there under your full control — accessible whenever you want it. We never hold or touch your money.</p>
       </div>
       <div class="how-step">
         <div class="how-step-icon">⚡</div>
@@ -628,11 +608,11 @@ a{color:inherit;text-decoration:none}
           <div class="profile-ret">5–8%<span>/ mo</span></div>
         </div>
         <div class="months-grid">
-          <div class="month"><div class="mn">MAR</div><div class="mv pos">+6%</div></div>
-          <div class="month"><div class="mn">APR</div><div class="mv pos">+7%</div></div>
           <div class="month"><div class="mn">MAY</div><div class="mv pos">+6%</div></div>
           <div class="month"><div class="mn">JUN</div><div class="mv pos">+11%</div></div>
           <div class="month"><div class="mn">JUL</div><div class="mv pos">+7%</div></div>
+          <div class="month"><div class="mn">AUG</div><div class="mv pos">+4.5%</div></div>
+          <div class="month"><div class="mn">SEP</div><div class="mv pos">+9%</div></div>
         </div>
         <div class="profile-foot"><button class="btn-breakdown" onclick="openPdf('a1')">View Full Performance Breakdown →</button></div>
       </div>
@@ -710,35 +690,12 @@ a{color:inherit;text-decoration:none}
     </div>
 
     <p style="font-size:12px;color:#888;text-align:center;margin-top:36px;line-height:1.7;max-width:640px;margin-left:auto;margin-right:auto;position:relative;z-index:1">Past performance based on live tracked data since 2021. Results vary by risk profile and market conditions. This does not constitute financial advice. Capital at risk.</p>
-
-    <!-- Trustpilot strip — integrated -->
-    <div style="position:relative;z-index:1;margin-top:52px;padding-top:40px;border-top:1px solid rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;text-align:left">
-      <div style="display:flex;align-items:center;gap:20px">
-        <img src="https://i.ibb.co/DfcZTLPD/Trustpilot-Logo-2022-svg-1.png" alt="Trustpilot" style="height:28px;width:auto;display:block" loading="lazy">
-        <div>
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
-            <span style="display:flex;gap:3px">
-              <span style="width:20px;height:20px;background:#00B67A;display:flex;align-items:center;justify-content:center;border-radius:2px"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
-              <span style="width:20px;height:20px;background:#00B67A;display:flex;align-items:center;justify-content:center;border-radius:2px"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
-              <span style="width:20px;height:20px;background:#00B67A;display:flex;align-items:center;justify-content:center;border-radius:2px"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
-              <span style="width:20px;height:20px;background:#00B67A;display:flex;align-items:center;justify-content:center;border-radius:2px"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
-              <span style="width:20px;height:20px;background:#00B67A;display:flex;align-items:center;justify-content:center;border-radius:2px"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
-            </span>
-            <span style="font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;color:var(--black)">Excellent</span>
-          </div>
-          <div style="font-size:13px;color:#555">Rated by our members on Trustpilot</div>
-        </div>
-      </div>
-      <a href="https://www.trustpilot.com/review/acealgo.ai" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;background:var(--black);color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:13px;padding:12px 22px;border-radius:6px;text-decoration:none;border:1px solid rgba(255,255,255,.15);transition:border-color .2s,background .2s;letter-spacing:.02em" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='rgba(255,255,255,.15)';this.style.color='#fff'">
-        Read our reviews →
-      </a>
-    </div>
   </div>
 </section>
 
 <hr class="gold-rule">
 
-<!-- BROKER — white bg -->
+<!-- BROKER -->
 <section id="broker">
   <div class="container">
     <span class="eyebrow" style="color:var(--gold)">Your capital is safe</span>
@@ -746,34 +703,18 @@ a{color:inherit;text-decoration:none}
     <p class="sec-sub">The most common question we get: "What happens to my money?" Here's the exact answer.</p>
 
     <div class="broker-points-grid">
-      <div class="broker-point"><div class="broker-point-icon">🔒</div><div class="broker-point-body"><h4>We Never Touch Your Money</h4><p>Your funds are held in your own account at Vantage Markets — we never hold, touch, or have access to your capital at any point.</p></div></div>
+      <div class="broker-point"><div class="broker-point-icon">🔒</div><div class="broker-point-body"><h4>We Never Touch Your Money</h4><p>Your funds are held in your own brokerage account — we never hold, touch, or have access to your capital at any point.</p></div></div>
       <div class="broker-point"><div class="broker-point-icon">💳</div><div class="broker-point-body"><h4>Withdraw When You Choose</h4><p>Deposit when ready. Withdraw your profits to your bank or crypto — no lockups, no permission required, no waiting.</p></div></div>
       <div class="broker-point"><div class="broker-point-icon">📊</div><div class="broker-point-body"><h4>Complete Transparency</h4><p>See every trade, every position, every result in real time. No black boxes. No guesswork about where your money is.</p></div></div>
-      <div class="broker-point"><div class="broker-point-icon">🏎️</div><div class="broker-point-body"><h4>Official Ferrari F1 Partner</h4><p>Vantage Markets is the official partner of Scuderia Ferrari HP Formula 1 team. 15+ years in financial markets.</p></div></div>
     </div>
 
     <div class="broker-carousel" id="broker-carousel">
       <div class="broker-carousel-track" id="broker-track">
-        <div class="broker-point"><div class="broker-point-icon">🔒</div><div class="broker-point-body"><h4>We Never Touch Your Money</h4><p>Your funds are held in your own account at Vantage Markets — we never hold, touch, or have access to your capital at any point.</p></div></div>
+        <div class="broker-point"><div class="broker-point-icon">🔒</div><div class="broker-point-body"><h4>We Never Touch Your Money</h4><p>Your funds are held in your own brokerage account — we never hold, touch, or have access to your capital at any point.</p></div></div>
         <div class="broker-point"><div class="broker-point-icon">💳</div><div class="broker-point-body"><h4>Withdraw When You Choose</h4><p>Deposit when ready. Withdraw to your bank or crypto — no lockups, no permission, no waiting.</p></div></div>
         <div class="broker-point"><div class="broker-point-icon">📊</div><div class="broker-point-body"><h4>Complete Transparency</h4><p>See every trade, every position, every result in real time. No black boxes.</p></div></div>
-        <div class="broker-point"><div class="broker-point-icon">🏎️</div><div class="broker-point-body"><h4>Official Ferrari F1 Partner</h4><p>Official partner of Scuderia Ferrari HP Formula 1 team. 15+ years in financial markets.</p></div></div>
       </div>
       <div class="broker-dots" id="broker-dots"></div>
-    </div>
-
-    <div class="vantage-card">
-      <div class="vantage-logo-wrap">
-        <img src="https://i.ibb.co/JWxcJDjj/images.png" alt="Vantage Markets" loading="lazy" style="height:48px;width:auto;filter:none" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-        <span style="display:none;font-family:var(--font-display);font-weight:900;font-size:22px;color:#fff">Vantage Markets</span>
-        <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:6px">Founded 2009 · 15+ years</div>
-      </div>
-      <div class="vantage-creds">
-        <div class="cred"><span class="cred-check">✓</span><span>ASIC regulated — one of the world's most respected financial regulators</span></div>
-        <div class="cred"><span class="cred-check">✓</span><span>$50 million client fund insurance underwritten by Lloyd's of London</span></div>
-        <div class="cred"><span class="cred-check">✓</span><span>Client funds held in segregated accounts — never mixed with company capital</span></div>
-        <div class="cred"><span class="cred-check">✓</span><span>Official partner of Scuderia Ferrari HP Formula 1 team</span></div>
-      </div>
     </div>
   </div>
 </section>
@@ -789,7 +730,7 @@ a{color:inherit;text-decoration:none}
     <p class="sec-sub">Everything you need to know before applying.</p>
     <div class="faq-list">
       <div class="faq-item"><button class="faq-btn" aria-expanded="false"><span class="faq-q">How much capital do I need to get started?</span><span class="faq-icon">+</span></button><div class="faq-body"><p class="faq-a">The system works best with accounts above £5,000–£10,000, though it can operate on smaller and much larger balances. Larger accounts benefit from better risk-adjusted performance and smoother compounding.</p></div></div>
-      <div class="faq-item"><button class="faq-btn" aria-expanded="false"><span class="faq-q">Is my money safe? Who holds it?</span><span class="faq-icon">+</span></button><div class="faq-body"><p class="faq-a">Your money is held in your own account at Vantage Markets — a broker regulated by ASIC with $50M client fund insurance underwritten by Lloyd's of London. We never touch, hold, or have access to your capital. You see every trade in real time and can withdraw whenever you choose.</p></div></div>
+      <div class="faq-item"><button class="faq-btn" aria-expanded="false"><span class="faq-q">Is my money safe? Who holds it?</span><span class="faq-icon">+</span></button><div class="faq-body"><p class="faq-a">Your money is held in your own brokerage account. We never touch, hold, or have access to your capital. You can see every trade in real time and withdraw whenever you choose.</p></div></div>
       <div class="faq-item"><button class="faq-btn" aria-expanded="false"><span class="faq-q">Can I withdraw my money at any time?</span><span class="faq-icon">+</span></button><div class="faq-body"><p class="faq-a">Yes — completely. There are no lockup periods, no waiting times, and no permission required. Your money is in your account and you can withdraw to your bank or crypto wallet whenever you want. This is your money, on your terms.</p></div></div>
       <div class="faq-item"><button class="faq-btn" aria-expanded="false"><span class="faq-q">How does the algorithm actually generate its trades?</span><span class="faq-icon">+</span></button><div class="faq-body"><p class="faq-a">Our models use a blend of machine learning, statistical arbitrage, and real-time market data. They evaluate probability, volatility, momentum, and order-flow conditions to identify trades with the highest expected value. Everything is fully systematic — no emotion, no discretion.</p></div></div>
       <div class="faq-item"><button class="faq-btn" aria-expanded="false"><span class="faq-q">How does the system manage risk?</span><span class="faq-icon">+</span></button><div class="faq-body"><p class="faq-a">Risk is built into every layer of the model. Position size is volatility-scaled, stop-losses are adaptive, and maximum drawdown controls are enforced at the portfolio level. The system is engineered to prioritize capital preservation and long-term stability.</p></div></div>
@@ -838,7 +779,6 @@ a{color:inherit;text-decoration:none}
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
-          <li><a href="https://www.trustpilot.com/review/acealgo.ai" target="_blank" rel="noopener">Reviews</a></li>
           <li><a href="https://wa.me/447462123336" target="_blank" rel="noopener">Contact</a></li>
           <li><a href="https://acealgo.ai/privacypolicy">Privacy Policy</a></li>
           <li><a href="https://acealgo.ai/termsofservice">Terms of Service</a></li>
@@ -938,7 +878,7 @@ a{color:inherit;text-decoration:none}
       var track = document.querySelector('.ticker-track');
       if(!track) return;
       var pos = 0;
-      var speed = 0.6; // px per frame — increase for faster
+      var speed = 0.6;
       var halfW = track.scrollWidth / 2;
       function tick(){
         pos += speed;
